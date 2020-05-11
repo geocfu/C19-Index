@@ -6,14 +6,14 @@ import {
   Text,
   TopNavigation,
   TopNavigationAction,
-  Radio,
-  RadioGroup,
-  Card,
+  Button,
 } from "@ui-kitten/components";
+import Constants from "expo-constants";
 
 import { ThemeContext } from "../hooks/theme-context";
 
 import ThemeCard from "../components/ThemeCard";
+import ThemeCardHeader from "../components/ThemeCardHeader";
 
 const BackIcon = (props) => <Icon {...props} name="arrow-back" />;
 const ExternalLinkIcon = (props) => <Icon {...props} name="external-link" />;
@@ -37,7 +37,7 @@ const Settings = ({ navigation }) => {
         alignment="center"
         accessoryLeft={renderBackAction}
       />
-      <Layout style={{ flex: 1 }} level="2">
+      <Layout style={{ flex: 1 }} level="1">
         <View
           style={{
             marginLeft: 10,
@@ -77,36 +77,47 @@ const Settings = ({ navigation }) => {
             category="h5"
             style={{
               fontWeight: "bold",
+              marginTop: 10,
             }}
           >
             About
           </Text>
-          <Card
-            style={styles.card}
-            onPress={() => {
-              Linking.openURL("http://bihelab.di.ionio.gr");
-            }}
-            appearance="filled"
-          >
-            <Text category="h5">BiHELab</Text>
-            <Text appearance="hint">Organizer</Text>
-            <ExternalLinkIcon />
-          </Card>
 
-          <Card
-            appearance="filled"
-            style={styles.card}
+          <Button style={styles.aboutButton} status="basic" size="giant">
+            Version
+            {"\n"}
+            <Text appearance="hint">
+              {Constants.manifest.version} ({Constants.nativeBuildVersion})
+            </Text>
+          </Button>
+
+          <Button
+            style={styles.aboutButton}
+            status="basic"
+            size="giant"
+            accessoryRight={ExternalLinkIcon}
+            onPress={() => {
+              Linking.openURL("http://bihelab.di.ionio.gr/");
+            }}
+          >
+            BiHELab
+            {"\n"}
+            <Text appearance="hint">Organizer</Text>
+          </Button>
+
+          <Button
+            style={styles.aboutButton}
+            status="basic"
+            size="giant"
+            accessoryRight={ExternalLinkIcon}
             onPress={() => {
               Linking.openURL("https://github.com/geocfu/");
             }}
           >
-            <Text category="h6">George Mantellos</Text>
+            George Mantellos
+            {"\n"}
             <Text appearance="hint">App Developer</Text>
-          </Card>
-          <Card appearance="filled" style={styles.card}>
-            <Text category="h6">Themis Exarchos</Text>
-            <Text appearance="hint">Supervisor</Text>
-          </Card>
+          </Button>
         </View>
       </Layout>
     </SafeAreaView>
@@ -114,24 +125,9 @@ const Settings = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  header: {
-    flexDirection: "row",
+  aboutButton: {
     justifyContent: "space-between",
-    alignItems: "center",
-    marginHorizontal: 10,
-    marginBottom: 10,
-  },
-  card: {
     marginTop: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 6,
-    },
-    shadowOpacity: 0.37,
-    shadowRadius: 7.49,
-
-    elevation: 12,
   },
 });
 
