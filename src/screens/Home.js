@@ -78,19 +78,6 @@ const Home = ({ navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  card: {
-    marginTop: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 6,
-    },
-    shadowOpacity: 0.37,
-    shadowRadius: 7.49,
-
-    elevation: 12,
-  },
-});
+const styles = StyleSheet.create({});
 
 export default Home;

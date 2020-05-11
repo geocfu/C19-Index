@@ -13,19 +13,13 @@ import {
 
 import { ThemeContext } from "../hooks/theme-context";
 
+import ThemeCard from "../components/ThemeCard";
+
 const BackIcon = (props) => <Icon {...props} name="arrow-back" />;
 const ExternalLinkIcon = (props) => <Icon {...props} name="external-link" />;
 
 const Settings = ({ navigation }) => {
   const themeContext = React.useContext(ThemeContext);
-
-  const [selectedIndex, setSelectedIndex] = React.useState(() => {
-    if (themeContext.theme === "light") {
-      return 0;
-    } else {
-      return 1;
-    }
-  });
 
   const renderBackAction = () => (
     <TopNavigationAction
@@ -35,13 +29,6 @@ const Settings = ({ navigation }) => {
       }}
     />
   );
-
-  const onCheckedChange = (index) => {
-    if (selectedIndex != index) {
-      themeContext.toggleTheme();
-      setSelectedIndex(index);
-    }
-  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -65,24 +52,27 @@ const Settings = ({ navigation }) => {
               fontWeight: "bold",
             }}
           >
-            Theme
+            Themes
           </Text>
-          <RadioGroup
-            selectedIndex={selectedIndex}
-            onChange={onCheckedChange}
-            style={{ left: 10 }}
-          >
-            <Radio>
-              {(evaProps) => (
-                <Text style={{ marginHorizontal: 8 }}>Light Theme</Text>
-              )}
-            </Radio>
-            <Radio>
-              {(evaProps) => (
-                <Text style={{ marginHorizontal: 8 }}>Dark Theme</Text>
-              )}
-            </Radio>
-          </RadioGroup>
+
+          <View style={{ flexDirection: "column" }}>
+            <ThemeCard
+              onPress={() => {
+                if (themeContext.theme === "dark") {
+                  themeContext.toggleTheme();
+                }
+              }}
+              title="Light"
+            />
+            <ThemeCard
+              onPress={() => {
+                if (themeContext.theme === "light") {
+                  themeContext.toggleTheme();
+                }
+              }}
+              title="Dark"
+            />
+          </View>
           <Text
             category="h5"
             style={{
@@ -124,6 +114,13 @@ const Settings = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginHorizontal: 10,
+    marginBottom: 10,
+  },
   card: {
     marginTop: 10,
     shadowColor: "#000",
