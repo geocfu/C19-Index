@@ -7,16 +7,18 @@ import {
   TopNavigation,
   TopNavigationAction,
   Button,
+  ListItem,
 } from "@ui-kitten/components";
 import Constants from "expo-constants";
 
 import { ThemeContext } from "../hooks/theme-context";
 
 import ThemeCard from "../components/ThemeCard";
-import ThemeCardHeader from "../components/ThemeCardHeader";
 
 const BackIcon = (props) => <Icon {...props} name="arrow-back" />;
+const VersionIcon = (props) => <Icon {...props} name="clock-outline" />;
 const ExternalLinkIcon = (props) => <Icon {...props} name="external-link" />;
+const BugIcon = (props) => <Icon {...props} name="github" />;
 
 const Settings = ({ navigation }) => {
   const themeContext = React.useContext(ThemeContext);
@@ -83,41 +85,50 @@ const Settings = ({ navigation }) => {
             About
           </Text>
 
-          <Button style={styles.aboutButton} status="basic" size="giant">
-            Version
-            {"\n"}
-            <Text appearance="hint">
-              {Constants.manifest.version} ({Constants.nativeBuildVersion})
-            </Text>
-          </Button>
-
-          <Button
-            style={styles.aboutButton}
-            status="basic"
-            size="giant"
-            accessoryRight={ExternalLinkIcon}
+          <ListItem
+            style={{ borderRadius: 5 }}
+            title={
+              <Text category="h6" appearance="hint">
+                Version
+              </Text>
+            }
+            description={
+              <Text>
+                {Constants.manifest.version} ({Constants.nativeBuildVersion})
+              </Text>
+            }
+            accessoryLeft={VersionIcon}
+            disabled
+          />
+          <ListItem
+            style={{ borderRadius: 5 }}
+            title={<Text category="h6">Report an issue</Text>}
+            description={
+              <Text appearance="hint">Having an issue? Report it here</Text>
+            }
+            accessoryLeft={BugIcon}
+            onPress={() => {
+              Linking.openURL("https://github.com/geocfu/C19-Index/issues");
+            }}
+          />
+          <ListItem
+            style={{ borderRadius: 5 }}
+            title={<Text category="h6">BiHELab</Text>}
+            description={<Text appearance="hint">Organizer</Text>}
+            accessoryLeft={ExternalLinkIcon}
             onPress={() => {
               Linking.openURL("http://bihelab.di.ionio.gr/");
             }}
-          >
-            BiHELab
-            {"\n"}
-            <Text appearance="hint">Organizer</Text>
-          </Button>
-
-          <Button
-            style={styles.aboutButton}
-            status="basic"
-            size="giant"
-            accessoryRight={ExternalLinkIcon}
+          />
+          <ListItem
+            style={{ borderRadius: 5 }}
+            title={<Text category="h6">George Mantellos</Text>}
+            description={<Text appearance="hint">App Developer</Text>}
+            accessoryLeft={ExternalLinkIcon}
             onPress={() => {
               Linking.openURL("https://github.com/geocfu/");
             }}
-          >
-            George Mantellos
-            {"\n"}
-            <Text appearance="hint">App Developer</Text>
-          </Button>
+          />
         </View>
       </Layout>
     </SafeAreaView>
