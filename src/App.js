@@ -1,11 +1,9 @@
 import React from "react";
 import { StatusBar } from "react-native";
-//import AsyncStorage from "@react-native-community/async-storage";
 import { AsyncStorage } from "react-native";
 
 import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
-// import { mapping, light, dark } from "@eva-design/eva";
 import * as eva from "@eva-design/eva";
 
 import { ThemeContext } from "./hooks/theme-context";
