@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, Alert, View, ScrollView } from "react-native";
+import { SafeAreaView, View, ScrollView } from "react-native";
 import {
   Icon,
   Layout,
