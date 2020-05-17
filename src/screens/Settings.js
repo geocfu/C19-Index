@@ -31,10 +31,16 @@ const Settings = ({ navigation }) => {
     />
   );
 
+  const renderScreenTitle = () => (
+    <Text category="h6" style={{ fontWeight: "bold" }}>
+      Settings
+    </Text>
+  );
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <TopNavigation
-        title="Settings"
+        title={renderScreenTitle}
         alignment="center"
         accessoryLeft={renderBackAction}
       />
@@ -84,52 +90,48 @@ const Settings = ({ navigation }) => {
             >
               About
             </Text>
-
-            <ListItem
-              style={{ borderRadius: 5 }}
-              title={
-                <Text category="h6" appearance="hint">
-                  Version
-                </Text>
-              }
-              description={
-                <Text>
-                  {Constants.manifest.version} ({Constants.nativeBuildVersion})
-                </Text>
-              }
-              accessoryLeft={VersionIcon}
-              disabled
-            />
-            <ListItem
-              style={{ borderRadius: 5 }}
-              title={<Text category="h6">Report an issue</Text>}
-              description={
-                <Text appearance="hint">Having an issue? Report it here</Text>
-              }
-              accessoryLeft={BugIcon}
-              onPress={() => {
-                Linking.openURL("https://github.com/geocfu/C19-Index/issues");
-              }}
-            />
-            <ListItem
-              style={{ borderRadius: 5 }}
-              title={<Text category="h6">BiHELab</Text>}
-              description={<Text appearance="hint">Organizer</Text>}
-              accessoryLeft={ExternalLinkIcon}
-              onPress={() => {
-                Linking.openURL("http://bihelab.di.ionio.gr/");
-              }}
-            />
-            <ListItem
-              style={{ borderRadius: 5 }}
-              title={<Text category="h6">George Mantellos</Text>}
-              description={<Text appearance="hint">App Developer</Text>}
-              accessoryLeft={ExternalLinkIcon}
-              onPress={() => {
-                Linking.openURL("https://github.com/geocfu/");
-              }}
-            />
           </View>
+
+          <ListItem
+            title={
+              <Text category="h6" appearance="hint">
+                Version
+              </Text>
+            }
+            description={
+              <Text>
+                {Constants.manifest.version} ({Constants.nativeBuildVersion})
+              </Text>
+            }
+            accessoryLeft={VersionIcon}
+            disabled
+          />
+          <ListItem
+            title={<Text category="h6">Report an issue</Text>}
+            description={
+              <Text appearance="hint">Having an issue? Report it here</Text>
+            }
+            accessoryLeft={BugIcon}
+            onPress={() => {
+              Linking.openURL("https://github.com/geocfu/C19-Index/issues");
+            }}
+          />
+          <ListItem
+            title={<Text category="h6">BiHELab</Text>}
+            description={<Text appearance="hint">Organizer</Text>}
+            accessoryLeft={ExternalLinkIcon}
+            onPress={() => {
+              Linking.openURL("http://bihelab.di.ionio.gr/");
+            }}
+          />
+          <ListItem
+            title={<Text category="h6">George Mantellos</Text>}
+            description={<Text appearance="hint">App Developer</Text>}
+            accessoryLeft={ExternalLinkIcon}
+            onPress={() => {
+              Linking.openURL("https://github.com/geocfu/");
+            }}
+          />
         </ScrollView>
       </Layout>
     </SafeAreaView>

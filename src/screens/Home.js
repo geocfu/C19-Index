@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, View, StyleSheet } from "react-native";
+import { SafeAreaView, View, ScrollView } from "react-native";
 import {
   Layout,
   TopNavigation,
@@ -26,41 +26,42 @@ const Home = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <TopNavigation accessoryRight={renderSettingsAction} />
-      <Layout
-        style={{
-          flex: 1,
-        }}
-      >
+      <Layout style={{ flex: 1 }}>
+        <ScrollView>
+          <View
+            style={{
+              marginLeft: 10,
+              marginRight: 10,
+              marginTop: 10,
+              marginBottom: 10,
+            }}
+          >
+            <Text
+              category="h1"
+              style={{
+                fontWeight: "bold",
+              }}
+            >
+              Stay Home
+              {"\n"}
+              Stay Safe
+            </Text>
+          </View>
+        </ScrollView>
         <View
           style={{
+            flex: 1,
+            justifyContent: "flex-end",
             marginLeft: 10,
             marginRight: 10,
-            marginTop: 10,
-            marginBottom: 10,
+            marginBottom: 30,
           }}
         >
-          <Text
-            category="h1"
-            style={{
-              fontWeight: "bold",
-            }}
-          >
-            Stay Home
-          </Text>
-          <Text
-            category="h1"
-            style={{
-              fontWeight: "bold",
-            }}
-          >
-            Stay Safe
-          </Text>
-
           <Button
-            style={{}}
             status="success"
             size="giant"
             accessoryRight={ForwardIcon}
+            onPress={() => navigation.navigate("FormStep1")}
           >
             Index Calculator
           </Button>
@@ -69,7 +70,5 @@ const Home = ({ navigation }) => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default Home;

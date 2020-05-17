@@ -69,7 +69,7 @@ const FormStep1 = ({ navigation }) => {
         alignment="center"
         accessoryLeft={renderBackAction}
       />
-      <Layout style={{ flex: 1 }} level="3">
+      <Layout style={{ flex: 1 }} level="2">
         <ScrollView>
           <View
             style={{
@@ -85,7 +85,7 @@ const FormStep1 = ({ navigation }) => {
               onChangeText={(text) => setValue("age", text, true)}
               keyboardType="number-pad"
               name="age"
-              selectionColor={theme["background-basic-color-4"]}
+              style={{ backgroundColor: theme["background-basic-color-1"] }}
             />
             {errors.age && errors.age.type === "required" && (
               <Text status="danger">Age is required.</Text>
@@ -119,8 +119,8 @@ const FormStep1 = ({ navigation }) => {
                 style={{
                   borderRadius: 15,
                   borderWidth: 1,
-                  borderColor: theme["background-basic-color-4"],
-                  backgroundColor: theme["background-basic-color-2"],
+                  borderColor: theme["background-basic-color-3"],
+                  backgroundColor: theme["background-basic-color-1"],
                   padding: 15,
                 }}
               >
@@ -130,8 +130,8 @@ const FormStep1 = ({ navigation }) => {
                 style={{
                   borderRadius: 15,
                   borderWidth: 1,
-                  borderColor: theme["background-basic-color-4"],
-                  backgroundColor: theme["background-basic-color-2"],
+                  borderColor: theme["background-basic-color-3"],
+                  backgroundColor: theme["background-basic-color-1"],
                   padding: 15,
                 }}
               >
@@ -153,6 +153,7 @@ const FormStep1 = ({ navigation }) => {
               size="large"
               onChangeText={(text) => setValue("admissions", text, true)}
               keyboardType="number-pad"
+              style={{ backgroundColor: theme["background-basic-color-1"] }}
             />
             {errors.admissions && errors.admissions.type === "required" && (
               <Text status="danger">
