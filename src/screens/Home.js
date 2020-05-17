@@ -12,6 +12,7 @@ import {
 
 const SettingsIcon = (props) => <Icon {...props} name="settings-outline" />;
 const ForwardIcon = (props) => <Icon {...props} name="arrow-forward" />;
+
 const Home = ({ navigation }) => {
   const renderSettingsAction = () => (
     <TopNavigationAction
@@ -54,16 +55,7 @@ const Home = ({ navigation }) => {
           >
             Stay Safe
           </Text>
-          <Card
-            appearance="filled"
-            style={styles.card}
-            onPress={() => {
-              Linking.openURL("https://github.com/geocfu/");
-            }}
-          >
-            <Text category="h6">George Mantellos</Text>
-            <Text appearance="hint">App Developer</Text>
-          </Card>
+
           <Button
             style={{}}
             status="success"
