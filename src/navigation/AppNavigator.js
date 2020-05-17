@@ -7,6 +7,10 @@ import LinkingConfiguration from "../navigation/LinkingConfiguration";
 
 import Home from "../screens/Home";
 import Settings from "../screens/Settings";
+import FormStep1 from "../screens/form/FormStep1";
+import FormStep2 from "../screens/form/FormStep2";
+import FormStep3 from "../screens/form/FormStep3";
+import Results from "../screens/form/Results";
 
 const Stack = createStackNavigator();
 
@@ -14,6 +18,10 @@ const HomeNavigator = () => (
   <Stack.Navigator headerMode="none">
     <Stack.Screen name="Home" component={Home} />
     <Stack.Screen name="Settings" component={Settings} />
+    <Stack.Screen name="FormStep1" component={FormStep1} />
+    <Stack.Screen name="FormStep2" component={FormStep2} />
+    <Stack.Screen name="FormStep3" component={FormStep3} />
+    <Stack.Screen name="Results" component={Results} />
   </Stack.Navigator>
 );
 
