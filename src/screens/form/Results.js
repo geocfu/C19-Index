@@ -11,19 +11,14 @@ import {
   Layout,
   Text,
   TopNavigation,
-  TopNavigationAction,
   Button,
 } from "@ui-kitten/components";
 import { useFocusEffect } from "@react-navigation/native";
 
-import { ThemeContext } from "../../hooks/theme-context";
-
-const BackIcon = (props) => <Icon {...props} name="arrow-back" />;
 const RestartIcon = (props) => <Icon {...props} name="sync" />;
 
-const Results = ({ navigation }) => {
-  const themeContext = React.useContext(ThemeContext);
-
+const Results = ({ navigation, route }) => {
+  console.log(route.params);
   useFocusEffect(
     React.useCallback(() => {
       const onBackPress = () => {
@@ -35,15 +30,6 @@ const Results = ({ navigation }) => {
       return () =>
         BackHandler.removeEventListener("hardwareBackPress", onBackPress);
     })
-  );
-
-  const renderBackAction = () => (
-    <TopNavigationAction
-      icon={BackIcon}
-      onPress={() => {
-        navigation.goBack();
-      }}
-    />
   );
 
   const renderScreenTitle = () => (
