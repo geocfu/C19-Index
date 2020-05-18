@@ -11,6 +11,7 @@ import {
   Radio,
   RadioGroup,
   useTheme,
+  CheckBox,
 } from "@ui-kitten/components";
 import { useForm } from "react-hook-form";
 
@@ -24,7 +25,21 @@ const FormStep1 = ({ navigation }) => {
 
   const [sexSelectedIndex, setSexSelectedIndex] = React.useState(null);
 
-  const { register, setValue, handleSubmit, errors } = useForm();
+  const [
+    pneumoniaExceptThatCausedByTuberculosisChecked,
+    setPneumoniaExceptThatCausedByTuberculosisChecked,
+  ] = React.useState(false);
+  const [
+    otherAndIllDefinedHeartDiseaseChecked,
+    setOtherAndIllDefinedHeartDiseaseChecked,
+  ] = React.useState(false);
+
+  const { register, setValue, handleSubmit, errors } = useForm({
+    defaultValues: {
+      pneumoniaExceptThatCausedByTuberculosis: false,
+      otherAndIllDefinedHeartDisease: false,
+    },
+  });
 
   React.useEffect(() => {
     register(
@@ -38,9 +53,17 @@ const FormStep1 = ({ navigation }) => {
     );
     register({ name: "sex" }, { required: true });
     register(
-      { name: "admissions" },
-      { required: true, min: 1, pattern: /^\d+$/ }
+      { name: "numberOfHospitalAdmissions" },
+      {
+        required: true,
+        max: 100,
+        min: 0,
+        pattern: /^\d+$/,
+      }
     );
+    register({ name: "pneumoniaExceptThatCausedByTuberculosis" });
+    register({ name: "otherAndIllDefinedHeartDisease" });
+    register({ name: "heartFailure" });
   }, [register]);
 
   const onSubmit = (data) => {
@@ -61,7 +84,7 @@ const FormStep1 = ({ navigation }) => {
       Step 1 / 3
     </Text>
   );
-  // @refresh reset
+  //@refresh reset
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <TopNavigation
@@ -70,7 +93,7 @@ const FormStep1 = ({ navigation }) => {
         accessoryLeft={renderBackAction}
       />
       <Layout style={{ flex: 1 }} level="2">
-        <ScrollView>
+        <ScrollView keyboardShouldPersistTaps="handled">
           <View
             style={{
               marginLeft: 10,
@@ -80,12 +103,13 @@ const FormStep1 = ({ navigation }) => {
             }}
           >
             <Input
-              label={<Text category="h6">What is your age?</Text>}
+              label={<Text category="h6">What is your age? *</Text>}
               size="large"
               onChangeText={(text) => setValue("age", text, true)}
               keyboardType="number-pad"
               name="age"
               style={{ backgroundColor: theme["background-basic-color-1"] }}
+              status={errors.age ? "danger" : "basic"}
             />
             {errors.age && errors.age.type === "required" && (
               <Text status="danger">Age is required.</Text>
@@ -102,7 +126,7 @@ const FormStep1 = ({ navigation }) => {
 
             <Spacer top={10} bottom={10} />
 
-            <Text category="h6">What is your sex?</Text>
+            <Text category="h6">What is your sex? *</Text>
             <RadioGroup
               style={{
                 flexDirection: "row",
@@ -123,6 +147,7 @@ const FormStep1 = ({ navigation }) => {
                   backgroundColor: theme["background-basic-color-1"],
                   padding: 15,
                 }}
+                status={errors.sex ? "danger" : "basic"}
               >
                 <Text>Female</Text>
               </Radio>
@@ -134,6 +159,7 @@ const FormStep1 = ({ navigation }) => {
                   backgroundColor: theme["background-basic-color-1"],
                   padding: 15,
                 }}
+                status={errors.sex ? "danger" : "basic"}
               >
                 <Text>Male</Text>
               </Radio>
@@ -147,29 +173,84 @@ const FormStep1 = ({ navigation }) => {
             <Input
               label={
                 <Text category="h6">
-                  Number of Hospital admissions (Last 12M)
+                  Number of Hospital admissions (Last 12M) *
                 </Text>
               }
               size="large"
-              onChangeText={(text) => setValue("admissions", text, true)}
+              onChangeText={(text) =>
+                setValue("numberOfHospitalAdmissions", text, true)
+              }
               keyboardType="number-pad"
               style={{ backgroundColor: theme["background-basic-color-1"] }}
+              status={errors.numberOfHospitalAdmissions ? "danger" : "basic"}
             />
-            {errors.admissions && errors.admissions.type === "required" && (
-              <Text status="danger">
-                Number of Hospital admissions is required.
+            {errors.numberOfHospitalAdmissions &&
+              errors.numberOfHospitalAdmissions.type === "required" && (
+                <Text status="danger">
+                  Number of Hospital admissions is required.
+                </Text>
+              )}
+            {errors.numberOfHospitalAdmissions &&
+              errors.numberOfHospitalAdmissions.type === "max" && (
+                <Text status="danger">
+                  Number of Hospital admissions cannot be more than 100
+                </Text>
+              )}
+            {errors.numberOfHospitalAdmissions &&
+              errors.numberOfHospitalAdmissions.type === "min" && (
+                <Text status="danger">
+                  Number of Hospital admissions cannot be less than 0.
+                </Text>
+              )}
+            {errors.numberOfHospitalAdmissions &&
+              errors.numberOfHospitalAdmissions.type === "pattern" && (
+                <Text status="danger">
+                  Number of Hospital admissions must be numeric.
+                </Text>
+              )}
+
+            <Spacer top={10} bottom={10} />
+
+            <CheckBox
+              style={{
+                borderRadius: 4,
+                borderWidth: 1,
+                borderColor: theme["background-basic-color-3"],
+                backgroundColor: theme["background-basic-color-1"],
+                padding: 20,
+              }}
+              checked={pneumoniaExceptThatCausedByTuberculosisChecked}
+              onChange={(nextChecked) => {
+                setValue(
+                  "pneumoniaExceptThatCausedByTuberculosis",
+                  nextChecked
+                );
+                setPneumoniaExceptThatCausedByTuberculosisChecked(nextChecked);
+              }}
+            >
+              <Text category="h6">
+                Pneumonia except that caused by tuberculosis
               </Text>
-            )}
-            {errors.admissions && errors.admissions.type === "min" && (
-              <Text status="danger">
-                Number of Hospital admissions cannot be less than 1.
-              </Text>
-            )}
-            {errors.admissions && errors.admissions.type === "pattern" && (
-              <Text status="danger">
-                Number of Hospital admissions must be numeric.
-              </Text>
-            )}
+            </CheckBox>
+
+            <Spacer top={10} bottom={10} />
+
+            <CheckBox
+              style={{
+                borderRadius: 4,
+                borderWidth: 1,
+                borderColor: theme["background-basic-color-3"],
+                backgroundColor: theme["background-basic-color-1"],
+                padding: 20,
+              }}
+              checked={otherAndIllDefinedHeartDiseaseChecked}
+              onChange={(nextChecked) => {
+                setValue("otherAndIllDefinedHeartDisease", nextChecked);
+                setOtherAndIllDefinedHeartDiseaseChecked(nextChecked);
+              }}
+            >
+              <Text category="h6">Other and ill-defined heart disease</Text>
+            </CheckBox>
           </View>
         </ScrollView>
         <View
@@ -179,6 +260,7 @@ const FormStep1 = ({ navigation }) => {
             marginLeft: 10,
             marginRight: 10,
             marginBottom: 30,
+            marginTop: 80,
           }}
         >
           <Button
