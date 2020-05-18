@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, Linking, View, ScrollView } from "react-native";
+import { SafeAreaView, View, ScrollView } from "react-native";
 import {
   Icon,
   Layout,
@@ -7,21 +7,67 @@ import {
   TopNavigation,
   TopNavigationAction,
   Button,
-  CheckBox,
   useTheme,
+  CheckBox,
 } from "@ui-kitten/components";
+import { useForm } from "react-hook-form";
 
 import Spacer from "../../components/Spacer";
 
 const BackIcon = (props) => <Icon {...props} name="arrow-back" />;
 const ForwardIcon = (props) => <Icon {...props} name="arrow-forward" />;
-const InfoIcon = (props) => <Icon {...props} name="info" />;
 
 const FormStep2 = ({ navigation, route }) => {
   const theme = useTheme();
-  console.log(route.params);
 
-  const [checked, setChecked] = React.useState(false);
+  const [heartFailureChecked, setHeartFailureChecked] = React.useState(false);
+  const [
+    acuteRheumaticHeartFailureChecked,
+    setAcuteRheumaticHeartFailureChecked,
+  ] = React.useState(false);
+  const [
+    coronaryAtherosclerosisAndOtherHeartDiseaseChecked,
+    setCoronaryAtherosclerosisAndOtherHeartDiseaseChecked,
+  ] = React.useState(false);
+  const [
+    pulmonaryHeartDiseaseChecked,
+    setPulmonaryHeartDiseaseChecked,
+  ] = React.useState(false);
+  const [
+    chronicRheumaticHeartDiseaseChecked,
+    setChronicRheumaticHeartDiseaseChecked,
+  ] = React.useState(false);
+  const [
+    diabetesMellitusWithComplicationChecked,
+    setDiabetesMellitusWithComplicationChecked,
+  ] = React.useState(false);
+
+  const { register, setValue, handleSubmit } = useForm({
+    defaultValues: {
+      heartFailure: false,
+      acuteRheumaticHeartFailure: false,
+      coronaryAtherosclerosisAndOtherHeartDisease: false,
+      pulmonaryHeartDisease: false,
+      chronicRheumaticHeartDisease: false,
+      diabetesMellitusWithComplication: false,
+    },
+  });
+
+  React.useEffect(() => {
+    register({ name: "heartFailure" });
+    register({ name: "acuteRheumaticHeartFailure" });
+    register({ name: "coronaryAtherosclerosisAndOtherHeartDisease" });
+    register({ name: "pulmonaryHeartDisease" });
+    register({ name: "chronicRheumaticHeartDisease" });
+    register({ name: "diabetesMellitusWithComplication" });
+  }, [register]);
+
+  const onSubmit = (data) => {
+    navigation.navigate(
+      "FormStep3",
+      JSON.stringify(route.params.concat(JSON.stringify(data)))
+    );
+  };
 
   const renderBackAction = () => (
     <TopNavigationAction
@@ -37,7 +83,7 @@ const FormStep2 = ({ navigation, route }) => {
       Step 2 / 3
     </Text>
   );
-
+  //@refresh reset
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <TopNavigation
@@ -45,7 +91,7 @@ const FormStep2 = ({ navigation, route }) => {
         alignment="center"
         accessoryLeft={renderBackAction}
       />
-      <Layout style={{ flex: 1 }} level="3">
+      <Layout style={{ flex: 1 }} level="2">
         <ScrollView>
           <View
             style={{
@@ -55,24 +101,124 @@ const FormStep2 = ({ navigation, route }) => {
               marginBottom: 10,
             }}
           >
-            <View
+            <CheckBox
               style={{
                 borderRadius: 4,
-                borderWidth: 2,
-                borderColor: theme["background-basic-color-4"],
-                backgroundColor: theme["background-basic-color-2"],
+                borderWidth: 1,
+                borderColor: theme["background-basic-color-3"],
+                backgroundColor: theme["background-basic-color-1"],
+                padding: 20,
+              }}
+              checked={heartFailureChecked}
+              onChange={(nextChecked) => {
+                setValue("heartFailure", nextChecked);
+                setHeartFailureChecked(nextChecked);
               }}
             >
-              <CheckBox
-                style={{ padding: 20 }}
-                checked={checked}
-                onChange={(nextChecked) => setChecked(nextChecked)}
-              >
-                <Text category="h6">
-                  Pneumonia except that caused by tuberculosis
-                </Text>
-              </CheckBox>
-            </View>
+              <Text category="h6">Heart failure</Text>
+            </CheckBox>
+
+            <Spacer top={10} bottom={10} />
+
+            <CheckBox
+              style={{
+                borderRadius: 4,
+                borderWidth: 1,
+                borderColor: theme["background-basic-color-3"],
+                backgroundColor: theme["background-basic-color-1"],
+                padding: 20,
+              }}
+              checked={acuteRheumaticHeartFailureChecked}
+              onChange={(nextChecked) => {
+                setValue("acuteRheumaticHeartFailure", nextChecked);
+                setAcuteRheumaticHeartFailureChecked(nextChecked);
+              }}
+            >
+              <Text category="h6">Acute rheumatic heart disease</Text>
+            </CheckBox>
+
+            <Spacer top={10} bottom={10} />
+
+            <CheckBox
+              style={{
+                borderRadius: 4,
+                borderWidth: 1,
+                borderColor: theme["background-basic-color-3"],
+                backgroundColor: theme["background-basic-color-1"],
+                padding: 20,
+              }}
+              checked={coronaryAtherosclerosisAndOtherHeartDiseaseChecked}
+              onChange={(nextChecked) => {
+                setValue(
+                  "coronaryAtherosclerosisAndOtherHeartDisease",
+                  nextChecked
+                );
+                setCoronaryAtherosclerosisAndOtherHeartDiseaseChecked(
+                  nextChecked
+                );
+              }}
+            >
+              <Text category="h6">
+                Coronary atherosclerosis and other heart disease
+              </Text>
+            </CheckBox>
+
+            <Spacer top={10} bottom={10} />
+
+            <CheckBox
+              style={{
+                borderRadius: 4,
+                borderWidth: 1,
+                borderColor: theme["background-basic-color-3"],
+                backgroundColor: theme["background-basic-color-1"],
+                padding: 20,
+              }}
+              checked={pulmonaryHeartDiseaseChecked}
+              onChange={(nextChecked) => {
+                setValue("pulmonaryHeartDisease", nextChecked);
+                setPulmonaryHeartDiseaseChecked(nextChecked);
+              }}
+            >
+              <Text category="h6">Pulmonary heart disease</Text>
+            </CheckBox>
+
+            <Spacer top={10} bottom={10} />
+
+            <CheckBox
+              style={{
+                borderRadius: 4,
+                borderWidth: 1,
+                borderColor: theme["background-basic-color-3"],
+                backgroundColor: theme["background-basic-color-1"],
+                padding: 20,
+              }}
+              checked={chronicRheumaticHeartDiseaseChecked}
+              onChange={(nextChecked) => {
+                setValue("chronicRheumaticHeartDisease", nextChecked);
+                setChronicRheumaticHeartDiseaseChecked(nextChecked);
+              }}
+            >
+              <Text category="h6">Chronic rheumatic heart disease</Text>
+            </CheckBox>
+
+            <Spacer top={10} bottom={10} />
+
+            <CheckBox
+              style={{
+                borderRadius: 4,
+                borderWidth: 1,
+                borderColor: theme["background-basic-color-3"],
+                backgroundColor: theme["background-basic-color-1"],
+                padding: 20,
+              }}
+              checked={diabetesMellitusWithComplicationChecked}
+              onChange={(nextChecked) => {
+                setValue("diabetesMellitusWithComplication", nextChecked);
+                setDiabetesMellitusWithComplicationChecked(nextChecked);
+              }}
+            >
+              <Text category="h6">Diabetes mellitus with complication</Text>
+            </CheckBox>
           </View>
         </ScrollView>
         <View
@@ -81,13 +227,14 @@ const FormStep2 = ({ navigation, route }) => {
             justifyContent: "flex-end",
             marginLeft: 10,
             marginRight: 10,
-            marginBottom: 50,
+            marginBottom: 30,
+            marginTop: 80,
           }}
         >
           <Button
             size="giant"
             accessoryRight={ForwardIcon}
-            onPress={() => navigation.navigate("FormStep3")}
+            onPress={handleSubmit(onSubmit)}
           >
             Go to Step 3
           </Button>

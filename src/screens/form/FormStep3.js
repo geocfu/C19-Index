@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, Linking, View, ScrollView } from "react-native";
+import { SafeAreaView, View, Linking, ScrollView } from "react-native";
 import {
   Icon,
   Layout,
@@ -7,16 +7,52 @@ import {
   TopNavigation,
   TopNavigationAction,
   Button,
+  useTheme,
+  CheckBox,
 } from "@ui-kitten/components";
+import { useForm } from "react-hook-form";
 
-import { ThemeContext } from "../../hooks/theme-context";
+import Spacer from "../../components/Spacer";
 
 const BackIcon = (props) => <Icon {...props} name="arrow-back" />;
-const DoneIcon = (props) => <Icon {...props} name="done-all" />;
-const InfoIcon = (props) => <Icon {...props} name="info" />;
+const ForwardIcon = (props) => <Icon {...props} name="done-all" />;
 
-const FormStep3 = ({ navigation }) => {
-  const themeContext = React.useContext(ThemeContext);
+const FormStep3 = ({ navigation, route }) => {
+  const theme = useTheme();
+  console.log(route.params);
+  const [
+    diabetesMellitusWithoutComplicationChecked,
+    setDiabetesMellitusWithoutComplicationChecked,
+  ] = React.useState(false);
+  const [
+    chronicObstructivePulmonaryDiseaseAndBronchiectasisChecked,
+    setChronicObstructivePulmonaryDiseaseAndBronchiectasisChecked,
+  ] = React.useState(false);
+  const [
+    otherSpecifiedAndUnspecifiedLowerRespiratoryDiseaseChecked,
+    setOtherSpecifiedAndUnspecifiedLowerRespiratoryDiseaseChecked,
+  ] = React.useState(false);
+
+  const { register, setValue, handleSubmit } = useForm({
+    defaultValues: {
+      diabetesMellitusWithoutComplication: false,
+      chronicObstructivePulmonaryDiseaseAndBronchiectasis: false,
+      otherSpecifiedAndUnspecifiedLowerRespiratoryDisease: false,
+    },
+  });
+
+  React.useEffect(() => {
+    register({ name: "diabetesMellitusWithoutComplication" });
+    register({ name: "chronicObstructivePulmonaryDiseaseAndBronchiectasis" });
+    register({ name: "otherSpecifiedAndUnspecifiedLowerRespiratoryDisease" });
+  }, [register]);
+
+  const onSubmit = (data) => {
+    navigation.navigate(
+      "Results",
+      JSON.stringify(route.params.concat(JSON.stringify(data)))
+    );
+  };
 
   const renderBackAction = () => (
     <TopNavigationAction
@@ -32,7 +68,7 @@ const FormStep3 = ({ navigation }) => {
       Step 3 / 3
     </Text>
   );
-
+  //@refresh reset
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <TopNavigation
@@ -40,7 +76,7 @@ const FormStep3 = ({ navigation }) => {
         alignment="center"
         accessoryLeft={renderBackAction}
       />
-      <Layout style={{ flex: 1 }} level="1">
+      <Layout style={{ flex: 1 }} level="2">
         <ScrollView>
           <View
             style={{
@@ -50,15 +86,98 @@ const FormStep3 = ({ navigation }) => {
               marginBottom: 10,
             }}
           >
-            <Button
-              size="giant"
-              accessoryRight={DoneIcon}
-              onPress={() => navigation.navigate("Results")}
+            <CheckBox
+              style={{
+                borderRadius: 4,
+                borderWidth: 1,
+                borderColor: theme["background-basic-color-3"],
+                backgroundColor: theme["background-basic-color-1"],
+                padding: 20,
+              }}
+              checked={diabetesMellitusWithoutComplicationChecked}
+              onChange={(nextChecked) => {
+                setValue("diabetesMellitusWithoutComplication", nextChecked);
+                setDiabetesMellitusWithoutComplicationChecked(nextChecked);
+              }}
             >
-              Get The Results
-            </Button>
+              <Text category="h6">Diabetes mellitus without complication</Text>
+            </CheckBox>
+
+            <Spacer top={10} bottom={10} />
+
+            <CheckBox
+              style={{
+                borderRadius: 4,
+                borderWidth: 1,
+                borderColor: theme["background-basic-color-3"],
+                backgroundColor: theme["background-basic-color-1"],
+                padding: 20,
+              }}
+              checked={
+                chronicObstructivePulmonaryDiseaseAndBronchiectasisChecked
+              }
+              onChange={(nextChecked) => {
+                setValue(
+                  "chronicObstructivePulmonaryDiseaseAndBronchiectasis",
+                  nextChecked
+                );
+                setChronicObstructivePulmonaryDiseaseAndBronchiectasisChecked(
+                  nextChecked
+                );
+              }}
+            >
+              <Text category="h6">
+                Chronic obstructive pulmonary disease and bronchiectasis
+              </Text>
+            </CheckBox>
+
+            <Spacer top={10} bottom={10} />
+
+            <CheckBox
+              style={{
+                borderRadius: 4,
+                borderWidth: 1,
+                borderColor: theme["background-basic-color-3"],
+                backgroundColor: theme["background-basic-color-1"],
+                padding: 20,
+              }}
+              checked={
+                otherSpecifiedAndUnspecifiedLowerRespiratoryDiseaseChecked
+              }
+              onChange={(nextChecked) => {
+                setValue(
+                  "otherSpecifiedAndUnspecifiedLowerRespiratoryDisease",
+                  nextChecked
+                );
+                setOtherSpecifiedAndUnspecifiedLowerRespiratoryDiseaseChecked(
+                  nextChecked
+                );
+              }}
+            >
+              <Text category="h6">
+                Other specified and unspecified lower respiratory disease
+              </Text>
+            </CheckBox>
           </View>
         </ScrollView>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "flex-end",
+            marginLeft: 10,
+            marginRight: 10,
+            marginBottom: 30,
+            marginTop: 80,
+          }}
+        >
+          <Button
+            size="giant"
+            accessoryRight={ForwardIcon}
+            onPress={handleSubmit(onSubmit)}
+          >
+            Get The Results
+          </Button>
+        </View>
       </Layout>
     </SafeAreaView>
   );
