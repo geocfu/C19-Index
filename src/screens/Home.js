@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, View, ScrollView, Image } from "react-native";
+import { SafeAreaView, View, ScrollView, ImageBackground } from "react-native";
 import {
   Layout,
   TopNavigation,
@@ -7,24 +7,18 @@ import {
   Icon,
   Text,
   Button,
-  useTheme,
 } from "@ui-kitten/components";
 
-import SurgicalMaskImage from "../components/svgs/SurgicalMaskImage";
+import SurgicalMask from "../components/svgs/SurgicalMask";
 
 import VirusImage from "../components/svgs/VirusImage.js";
-import Virus1Image from "../components/svgs/Virus1Image.js";
+
 import Virus3Image from "../components/svgs/Virus3Image.js";
-import Virus4Image from "../components/svgs/Virus4Image.js";
-import Virus2Image from "../components/svgs/Virus2Image.js";
-import Virus5Image from "../components/svgs/Virus5Image.js";
 
 const SettingsIcon = (props) => <Icon {...props} name="settings-outline" />;
 const ForwardIcon = (props) => <Icon {...props} name="arrow-forward" />;
 
 const Home = ({ navigation }) => {
-  const theme = useTheme();
-
   const renderSettingsAction = () => (
     <TopNavigationAction
       icon={SettingsIcon}
@@ -33,53 +27,70 @@ const Home = ({ navigation }) => {
       }}
     />
   );
-  //@refresh reset
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <TopNavigation accessoryRight={renderSettingsAction} />
+      <VirusImage
+        width="60"
+        height="55"
+        style={{ position: "absolute", left: -20 }}
+      />
       <Layout style={{ flex: 1 }}>
         <ScrollView>
           <View
             style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
+              felx: 1,
               marginLeft: 10,
               marginRight: 10,
               marginTop: 10,
               marginBottom: 10,
             }}
           >
-            <Text
-              category="h1"
+            <View
               style={{
-                fontWeight: "bold",
+                flexDirection: "row",
+                justifyContent: "space-between",
               }}
             >
-              Stay Home
-              {"\n"}
-              Stay Safe
+              <Text
+                category="h1"
+                style={{
+                  fontWeight: "bold",
+                }}
+              >
+                #Stay Home
+                {"\n"}
+                #Stay Safe
+              </Text>
+              <SurgicalMask width="80" height="80" style={{ top: 0 }} />
+            </View>
+            <Text category="h5" style={{ textAlign: "left" }}>
+              How vulnerable are you or a loved one to serious illness from
+              COVID-19.
             </Text>
-            <SurgicalMaskImage width="100" height="100" />
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "flex-start",
-              marginLeft: 10,
-              marginRight: 10,
-              marginTop: 10,
-              marginBottom: 10,
-              zIndex: -10,
-            }}
-          >
-            <VirusImage width="50" height="50" />
-            <Virus1Image width="50" height="50" />
-            <Virus2Image width="50" height="50" />
-            <Virus3Image width="50" height="50" />
-            <Virus4Image width="50" height="50" />
-            <Virus5Image width="50" height="50" />
+            <Text appearance="hint" style={{ marginTop: 5 }}>
+              CDC guidelines highlight that older adults and people of any age
+              with certain underlying medical conditions might be at higher risk
+              for severe illness from COVID-19.
+              {"\n"}
+              {"\n"}
+              The C-19 Vulnerability Survey, or C-19 Index, combines these CDC
+              risk factors with other related risk factors that are known to
+              impact the severity of respiratory infections, and to create a
+              tool that can help individuals understand how vulnerable they or
+              their loved ones are to severe complications from COVID-19.
+              {"\n"}
+              {"\n"}
+              By completing the C-19 Vulnerability Survey, individuals can get a
+              more complete view into their own vulnerability and help to
+              identify others who are among the most vulnerable, so that
+              resources can be mobilized to assist them and help them remain
+              safe.
+            </Text>
           </View>
         </ScrollView>
+
         <View
           style={{
             flex: 1,
@@ -90,14 +101,18 @@ const Home = ({ navigation }) => {
           }}
         >
           <Button
-            status="success"
             size="giant"
             accessoryRight={ForwardIcon}
             onPress={() => navigation.navigate("FormStep1")}
           >
-            Index Calculator
+            Vulnerability Survey
           </Button>
         </View>
+        <Virus3Image
+          width="100"
+          height="100"
+          style={{ position: "absolute", bottom: -15, zIndex: -1, left: 15 }}
+        />
       </Layout>
     </SafeAreaView>
   );

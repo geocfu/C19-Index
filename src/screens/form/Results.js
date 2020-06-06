@@ -13,6 +13,8 @@ import {
   TopNavigation,
   Button,
 } from "@ui-kitten/components";
+import { ProgressBar } from "react-native-paper";
+
 import { useFocusEffect } from "@react-navigation/native";
 
 const RestartIcon = (props) => <Icon {...props} name="sync" />;
@@ -51,6 +53,7 @@ const Results = ({ navigation, route }) => {
               marginBottom: 10,
             }}
           >
+            <ProgressBar progress={0.5} color="red" />
             <Button
               size="giant"
               accessoryLeft={RestartIcon}
