@@ -63,10 +63,15 @@ const FormStep2 = ({ navigation, route }) => {
   }, [register]);
 
   const onSubmit = (data) => {
-    navigation.navigate(
-      "FormStep3",
-      JSON.stringify(route.params.concat(JSON.stringify(data)))
+    let oldRouteParams = route.params;
+    let currentRouteParams = JSON.stringify(data);
+
+    let newRouteParams = Object.assign(
+      JSON.parse(oldRouteParams),
+      JSON.parse(currentRouteParams)
     );
+
+    navigation.navigate("FormStep3", JSON.stringify(newRouteParams));
   };
 
   const renderBackAction = () => (

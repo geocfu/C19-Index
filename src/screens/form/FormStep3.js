@@ -19,7 +19,7 @@ const ForwardIcon = (props) => <Icon {...props} name="done-all" />;
 
 const FormStep3 = ({ navigation, route }) => {
   const theme = useTheme();
-  console.log(route.params);
+
   const [
     diabetesMellitusWithoutComplicationChecked,
     setDiabetesMellitusWithoutComplicationChecked,
@@ -48,10 +48,15 @@ const FormStep3 = ({ navigation, route }) => {
   }, [register]);
 
   const onSubmit = (data) => {
-    navigation.navigate(
-      "Results",
-      JSON.stringify(route.params.concat(JSON.stringify(data)))
+    let oldRouteParams = route.params;
+    let currentRouteParams = JSON.stringify(data);
+
+    let newRouteParams = Object.assign(
+      JSON.parse(oldRouteParams),
+      JSON.parse(currentRouteParams)
     );
+
+    navigation.navigate("Results", JSON.stringify(newRouteParams));
   };
 
   const renderBackAction = () => (
@@ -172,7 +177,7 @@ const FormStep3 = ({ navigation, route }) => {
         >
           <Button
             size="giant"
-            accessoryRight={ForwardIcon}
+            accessoryLeft={ForwardIcon}
             onPress={handleSubmit(onSubmit)}
           >
             Get The Results

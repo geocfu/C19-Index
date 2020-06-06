@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, View, ScrollView, ImageBackground } from "react-native";
+import { SafeAreaView, View, ScrollView } from "react-native";
 import {
   Layout,
   TopNavigation,
@@ -9,10 +9,10 @@ import {
   Button,
 } from "@ui-kitten/components";
 
+import Spacer from "../components/Spacer";
+
 import SurgicalMask from "../components/svgs/SurgicalMask";
-
 import VirusImage from "../components/svgs/VirusImage.js";
-
 import Virus3Image from "../components/svgs/Virus3Image.js";
 
 const SettingsIcon = (props) => <Icon {...props} name="settings-outline" />;
@@ -59,12 +59,13 @@ const Home = ({ navigation }) => {
                   fontWeight: "bold",
                 }}
               >
-                #Stay Home
+                Stay Home
                 {"\n"}
-                #Stay Safe
+                Stay Safe
               </Text>
               <SurgicalMask width="80" height="80" style={{ top: 0 }} />
             </View>
+            <Spacer top={10} bottom={10} />
             <Text category="h5" style={{ textAlign: "left" }}>
               How vulnerable are you or a loved one to serious illness from
               COVID-19.
