@@ -3,13 +3,13 @@
     "name": "C19-Index",
     "slug": "C19-Index",
     "platforms": ["ios", "android", "web"],
-    "version": "1.0.0",
+    "version": "0.1.0",
     "orientation": "portrait",
     "icon": "./src/assets/images/medical-mask.png",
-    "scheme": "myapp",
+    "scheme": "c19index",
     "splash": {
       "image": "./src/assets/images/medical-mask.png",
-      "resizeMode": "native",
+      "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "updates": {
