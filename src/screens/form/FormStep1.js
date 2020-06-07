@@ -24,7 +24,7 @@ const FormStep1 = ({ navigation }) => {
   const theme = useTheme();
 
   const [sexSelectedIndex, setSexSelectedIndex] = React.useState(null);
-
+  const [pneumoniaChecked, setPneumoniaChecked] = React.useState(false);
   const [
     pneumoniaExceptThatCausedByTuberculosisChecked,
     setPneumoniaExceptThatCausedByTuberculosisChecked,
@@ -36,6 +36,7 @@ const FormStep1 = ({ navigation }) => {
 
   const { register, setValue, handleSubmit, errors } = useForm({
     defaultValues: {
+      pneumonia: false,
       pneumoniaExceptThatCausedByTuberculosis: false,
       otherAndIllDefinedHeartDisease: false,
     },
@@ -61,9 +62,9 @@ const FormStep1 = ({ navigation }) => {
         pattern: /^\d+$/,
       }
     );
+    register({ name: "pneumonia" });
     register({ name: "pneumoniaExceptThatCausedByTuberculosis" });
     register({ name: "otherAndIllDefinedHeartDisease" });
-    register({ name: "heartFailure" });
   }, [register]);
 
   const onSubmit = (data) => {
@@ -209,6 +210,25 @@ const FormStep1 = ({ navigation }) => {
                   Number of Hospital admissions must be numeric.
                 </Text>
               )}
+
+            <Spacer top={10} bottom={10} />
+
+            <CheckBox
+              style={{
+                borderRadius: 4,
+                borderWidth: 1,
+                borderColor: theme["background-basic-color-3"],
+                backgroundColor: theme["background-basic-color-1"],
+                padding: 20,
+              }}
+              checked={pneumoniaChecked}
+              onChange={(nextChecked) => {
+                setValue("pneumonia", nextChecked);
+                setPneumoniaChecked(nextChecked);
+              }}
+            >
+              <Text category="h6">Pneumonia</Text>
+            </CheckBox>
 
             <Spacer top={10} bottom={10} />
 
