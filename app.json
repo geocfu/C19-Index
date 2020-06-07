@@ -3,7 +3,7 @@
     "name": "C19-Index",
     "slug": "C19-Index",
     "platforms": ["ios", "android", "web"],
-    "version": "0.1.0",
+    "version": "0.1.1",
     "orientation": "portrait",
     "icon": "./src/assets/images/medical-mask.png",
     "scheme": "c19index",
@@ -21,6 +21,8 @@
     },
     "web": {
       "favicon": "./src/assets/images/favicon.png"
-    }
+    },
+    "description": "A mobile app (iOS & Android) build with Expo for displaying the vulnerability of a patient on the COVID-19 pandemic.\n",
+    "githubUrl": "https://github.com/geocfu/C19-Index"
   }
 }
