@@ -1,5 +1,6 @@
 {
   "expo": {
+    "privacy": "public",
     "name": "C19-Index",
     "slug": "C19-Index",
     "platforms": ["ios", "android", "web"],
@@ -7,6 +8,11 @@
     "orientation": "portrait",
     "icon": "./src/assets/images/medical-mask.png",
     "scheme": "c19index",
+
+    "android": {
+      "package": "gr.ionio.bihelab.c19index",
+      "versionCode": 1
+    },
     "splash": {
       "image": "./src/assets/images/medical-mask.png",
       "resizeMode": "contain",
@@ -17,6 +23,8 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
+      "bundleIdentifier": "gr.ionio.bihelab.c19index",
+      "buildNumber": "0.1.1",
       "supportsTablet": true
     },
     "web": {
