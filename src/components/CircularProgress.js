@@ -5,7 +5,7 @@ const CircularProgress = (params) => {
   const theme = useTheme();
   return (
     <ProgressCircle
-      style={{ height: 300, marginTop: -230 }}
+      style={{ height: 300, marginTop: -270 }}
       progress={params.progress}
       progressColor={params.color}
       backgroundColor={theme["color-basic-400"]}
@@ -13,7 +13,6 @@ const CircularProgress = (params) => {
       endAngle={Math.PI * 0.5}
       strokeWidth={7}
       cornerRadius={0}
-      data={[50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80]}
     />
   );
 };
