@@ -18,7 +18,8 @@ import Virus3Image from "../components/svgs/Virus3Image.js";
 const SettingsIcon = (props) => <Icon {...props} name="settings-outline" />;
 const ForwardIcon = (props) => <Icon {...props} name="arrow-forward" />;
 
-const Home = ({ navigation }) => {
+const Home = ({ navigation, route }) => {
+  route.params = {};
   const renderSettingsAction = () => (
     <TopNavigationAction
       icon={SettingsIcon}
