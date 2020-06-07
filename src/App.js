@@ -21,9 +21,6 @@ const App = () => {
 
   const [theme, setTheme] = React.useState("light");
 
-  const currentStatusBarColor = statusBarColors[theme];
-  const currentStatusBarStyle = statusBarStyles[theme];
-
   React.useEffect(() => {
     AsyncStorage.getItem("@theme")
       .then((value) => {
