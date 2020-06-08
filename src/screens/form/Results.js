@@ -46,7 +46,7 @@ const Results = ({ navigation, route }) => {
       calculateVulnerabilityIndex();
 
       const onBackPress = () => {
-        return true;
+        return true; // disable back button behaviour
       };
 
       BackHandler.addEventListener("hardwareBackPress", onBackPress);
@@ -88,7 +88,9 @@ const Results = ({ navigation, route }) => {
         : 0) *
         -0.02 +
       vulnerabilityIndexData.age *
-        (vulnerabilityIndexData.pneumonia ? 1 : 0) *
+        (vulnerabilityIndexData.pneumoniaExceptThatCausedByTuberculosis
+          ? 1
+          : 0) *
         0.01 +
       vulnerabilityIndexData.age *
         (vulnerabilityIndexData.otherAndIllDefinedHeartDisease ? 1 : 0) *
@@ -127,64 +129,66 @@ const Results = ({ navigation, route }) => {
           : 0) *
         0.006;
 
-    let factor = 1.0 / (1.0 + Math.pow(2, -calculatedVulnerabilityIndex));
-
-    if (factor.toFixed(3) < 0.5) {
+    if (calculatedVulnerabilityIndex < -6.0) {
       // The propability is very small, so in order for the user to see something on the graph, raise it a bit.
-      setCircularBarProgress(factor.toFixed(3) < 0.1 ? 0.1 : factor.toFixed(3));
+      setCircularBarProgress(0.1);
       setCircularBarColor(theme["color-info-500"]);
 
       setVulnerabilityTitle("Normal");
       setVulnerabilityDescription(
         "You have normal vulnerability to severe complications\nfrom COVID-19"
       );
-    } else if (factor.toFixed(3) >= 0.5 && factor.toFixed(3) < 0.6) {
-      setCircularBarProgress(factor.toFixed(3));
+    } else if (
+      calculatedVulnerabilityIndex >= -6.0 &&
+      calculatedVulnerabilityIndex < -5.0
+    ) {
+      setCircularBarProgress(0.5);
       setCircularBarColor(theme["color-warning-500"]);
 
       setVulnerabilityTitle("1X Increased");
       setVulnerabilityDescription(
         "You are 1 times more vulnerable to severe complications\nfrom COVID-19"
       );
-    } else if (factor.toFixed(3) >= 0.6 && factor.toFixed(3) < 0.7) {
-      setCircularBarProgress(factor.toFixed(3));
+    } else if (
+      calculatedVulnerabilityIndex >= -5.0 &&
+      calculatedVulnerabilityIndex < -4.5
+    ) {
+      setCircularBarProgress(0.6);
       setCircularBarColor(theme["color-danger-500"]);
 
       setVulnerabilityTitle("2X Increased");
       setVulnerabilityDescription(
         "You are 2 times more vulnerable to severe complications\nfrom COVID-19"
       );
-    } else if (factor.toFixed(3) >= 0.7 && factor.toFixed(3) < 0.8) {
-      setCircularBarProgress(factor.toFixed(3));
+    } else if (
+      calculatedVulnerabilityIndex >= -4.5 &&
+      calculatedVulnerabilityIndex < -4.0
+    ) {
+      setCircularBarProgress(0.7);
       setCircularBarColor(theme["color-danger-500"]);
 
       setVulnerabilityTitle("3X Increased");
       setVulnerabilityDescription(
         "You are 3 times more vulnerable to severe complications\nfrom COVID-19"
       );
-    } else if (factor.toFixed(3) >= 0.8 && factor.toFixed(3) < 0.9) {
-      setCircularBarProgress(factor.toFixed(3));
+    } else if (
+      calculatedVulnerabilityIndex >= -4.0 &&
+      calculatedVulnerabilityIndex < -3.5
+    ) {
+      setCircularBarProgress(0.8);
       setCircularBarColor(theme["color-danger-500"]);
 
       setVulnerabilityTitle("4X Increased");
       setVulnerabilityDescription(
         "You are 4 times more vulnerable to severe complications\nfrom COVID-19"
       );
-    } else if (factor.toFixed(3) >= 0.9 && factor.toFixed(3) < 1.0) {
-      setCircularBarProgress(factor.toFixed(3));
+    } else {
+      setCircularBarProgress(0.9);
       setCircularBarColor(theme["color-danger-500"]);
 
       setVulnerabilityTitle("5X Increased");
       setVulnerabilityDescription(
         "You are 5 times more vulnerable to severe complications\nfrom COVID-19"
-      );
-    } else {
-      setCircularBarProgress(factor.toFixed(3));
-      setCircularBarColor(theme["color-danger-500"]);
-
-      setVulnerabilityTitle("6X Increased");
-      setVulnerabilityDescription(
-        "You are 6 times more vulnerable to severe complications\nfrom COVID-19"
       );
     }
   };
