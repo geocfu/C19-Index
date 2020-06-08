@@ -88,16 +88,16 @@ const Home = ({ navigation, route }) => {
                 risk for severe illness from COVID-19.
                 {"\n"}
                 {"\n"}
-                The C-19 Vulnerability Survey, or C-19 Index, combines these CDC
-                risk factors with other related risk factors that are known to
-                impact the severity of respiratory infections, and to create a
-                tool that can help individuals understand how vulnerable they or
-                their loved ones are to severe complications from COVID-19.
+                The C19-Severity Estimator Survey, or C19-Index, combines these
+                CDC risk factors with other related risk factors that are known
+                to impact the severity of respiratory infections, and to create
+                a tool that can help individuals understand how vulnerable they
+                or their loved ones are to severe complications from COVID-19.
                 {"\n"}
                 {"\n"}
-                By completing the C-19 Vulnerability Survey, individuals can get
-                a more complete view into their own vulnerability and help to
-                identify others who are among the most vulnerable, so that
+                By completing the C19-Severity Estimator Survey, individuals can
+                get a more complete view into their own vulnerability and help
+                to identify others who are among the most vulnerable, so that
                 resources can be mobilized to assist them and help them remain
                 safe.
               </Text>
@@ -109,7 +109,7 @@ const Home = ({ navigation, route }) => {
             accessoryRight={ForwardIcon}
             onPress={() => navigation.navigate("FormStep1")}
           >
-            Vulnerability Survey
+            Severity Estimator Survey
           </Button>
         </View>
         <Virus3Image
