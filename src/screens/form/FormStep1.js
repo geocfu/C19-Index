@@ -24,21 +24,24 @@ const FormStep1 = ({ navigation }) => {
   const theme = useTheme();
 
   const [sexSelectedIndex, setSexSelectedIndex] = React.useState(null);
-  const [pneumoniaChecked, setPneumoniaChecked] = React.useState(false);
   const [
     pneumoniaExceptThatCausedByTuberculosisChecked,
     setPneumoniaExceptThatCausedByTuberculosisChecked,
   ] = React.useState(false);
   const [
-    otherAndIllDefinedHeartDiseaseChecked,
-    setOtherAndIllDefinedHeartDiseaseChecked,
+    chronicObstructivePulmonaryDiseaseAndBronchiectasisChecked,
+    setChronicObstructivePulmonaryDiseaseAndBronchiectasisChecked,
+  ] = React.useState(false);
+  const [
+    otherSpecifiedAndUnspecifiedLowerRespiratoryDiseaseChecked,
+    setOtherSpecifiedAndUnspecifiedLowerRespiratoryDiseaseChecked,
   ] = React.useState(false);
 
   const { register, setValue, handleSubmit, errors } = useForm({
     defaultValues: {
-      pneumonia: false,
       pneumoniaExceptThatCausedByTuberculosis: false,
-      otherAndIllDefinedHeartDisease: false,
+      chronicObstructivePulmonaryDiseaseAndBronchiectasis: false,
+      otherSpecifiedAndUnspecifiedLowerRespiratoryDisease: false,
     },
   });
 
@@ -57,14 +60,14 @@ const FormStep1 = ({ navigation }) => {
       { name: "numberOfHospitalAdmissions" },
       {
         required: true,
-        max: 100,
+        max: 10,
         min: 0,
         pattern: /^\d+$/,
       }
     );
-    register({ name: "pneumonia" });
     register({ name: "pneumoniaExceptThatCausedByTuberculosis" });
-    register({ name: "otherAndIllDefinedHeartDisease" });
+    register({ name: "chronicObstructivePulmonaryDiseaseAndBronchiectasis" });
+    register({ name: "otherSpecifiedAndUnspecifiedLowerRespiratoryDisease" });
   }, [register]);
 
   const onSubmit = (data) => {
@@ -195,7 +198,7 @@ const FormStep1 = ({ navigation }) => {
             {errors.numberOfHospitalAdmissions &&
               errors.numberOfHospitalAdmissions.type === "max" && (
                 <Text status="danger">
-                  Number of Hospital admissions cannot be more than 100
+                  Number of Hospital admissions cannot be more than 10
                 </Text>
               )}
             {errors.numberOfHospitalAdmissions &&
@@ -210,25 +213,6 @@ const FormStep1 = ({ navigation }) => {
                   Number of Hospital admissions must be numeric.
                 </Text>
               )}
-
-            <Spacer top={10} bottom={10} />
-
-            <CheckBox
-              style={{
-                borderRadius: 4,
-                borderWidth: 1,
-                borderColor: theme["background-basic-color-3"],
-                backgroundColor: theme["background-basic-color-1"],
-                padding: 20,
-              }}
-              checked={pneumoniaChecked}
-              onChange={(nextChecked) => {
-                setValue("pneumonia", nextChecked);
-                setPneumoniaChecked(nextChecked);
-              }}
-            >
-              <Text category="h6">Pneumonia</Text>
-            </CheckBox>
 
             <Spacer top={10} bottom={10} />
 
@@ -264,13 +248,50 @@ const FormStep1 = ({ navigation }) => {
                 backgroundColor: theme["background-basic-color-1"],
                 padding: 20,
               }}
-              checked={otherAndIllDefinedHeartDiseaseChecked}
+              checked={
+                chronicObstructivePulmonaryDiseaseAndBronchiectasisChecked
+              }
               onChange={(nextChecked) => {
-                setValue("otherAndIllDefinedHeartDisease", nextChecked);
-                setOtherAndIllDefinedHeartDiseaseChecked(nextChecked);
+                setValue(
+                  "chronicObstructivePulmonaryDiseaseAndBronchiectasis",
+                  nextChecked
+                );
+                setChronicObstructivePulmonaryDiseaseAndBronchiectasisChecked(
+                  nextChecked
+                );
               }}
             >
-              <Text category="h6">Other and ill-defined heart disease</Text>
+              <Text category="h6">
+                Chronic obstructive pulmonary disease and bronchiectasis
+              </Text>
+            </CheckBox>
+
+            <Spacer top={10} bottom={10} />
+
+            <CheckBox
+              style={{
+                borderRadius: 4,
+                borderWidth: 1,
+                borderColor: theme["background-basic-color-3"],
+                backgroundColor: theme["background-basic-color-1"],
+                padding: 20,
+              }}
+              checked={
+                otherSpecifiedAndUnspecifiedLowerRespiratoryDiseaseChecked
+              }
+              onChange={(nextChecked) => {
+                setValue(
+                  "otherSpecifiedAndUnspecifiedLowerRespiratoryDisease",
+                  nextChecked
+                );
+                setOtherSpecifiedAndUnspecifiedLowerRespiratoryDiseaseChecked(
+                  nextChecked
+                );
+              }}
+            >
+              <Text category="h6">
+                Other specified and unspecified lower respiratory disease
+              </Text>
             </CheckBox>
           </View>
         </ScrollView>

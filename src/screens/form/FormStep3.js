@@ -21,30 +21,24 @@ const FormStep3 = ({ navigation, route }) => {
   const theme = useTheme();
 
   const [
+    diabetesMellitusWithComplicationChecked,
+    setDiabetesMellitusWithComplicationChecked,
+  ] = React.useState(false);
+  const [
     diabetesMellitusWithoutComplicationChecked,
     setDiabetesMellitusWithoutComplicationChecked,
-  ] = React.useState(false);
-  const [
-    chronicObstructivePulmonaryDiseaseAndBronchiectasisChecked,
-    setChronicObstructivePulmonaryDiseaseAndBronchiectasisChecked,
-  ] = React.useState(false);
-  const [
-    otherSpecifiedAndUnspecifiedLowerRespiratoryDiseaseChecked,
-    setOtherSpecifiedAndUnspecifiedLowerRespiratoryDiseaseChecked,
   ] = React.useState(false);
 
   const { register, setValue, handleSubmit } = useForm({
     defaultValues: {
+      diabetesMellitusWithComplication: false,
       diabetesMellitusWithoutComplication: false,
-      chronicObstructivePulmonaryDiseaseAndBronchiectasis: false,
-      otherSpecifiedAndUnspecifiedLowerRespiratoryDisease: false,
     },
   });
 
   React.useEffect(() => {
+    register({ name: "diabetesMellitusWithComplication" });
     register({ name: "diabetesMellitusWithoutComplication" });
-    register({ name: "chronicObstructivePulmonaryDiseaseAndBronchiectasis" });
-    register({ name: "otherSpecifiedAndUnspecifiedLowerRespiratoryDisease" });
   }, [register]);
 
   const onSubmit = (data) => {
@@ -99,6 +93,25 @@ const FormStep3 = ({ navigation, route }) => {
                 backgroundColor: theme["background-basic-color-1"],
                 padding: 20,
               }}
+              checked={diabetesMellitusWithComplicationChecked}
+              onChange={(nextChecked) => {
+                setValue("diabetesMellitusWithComplication", nextChecked);
+                setDiabetesMellitusWithComplicationChecked(nextChecked);
+              }}
+            >
+              <Text category="h6">Diabetes mellitus with complication</Text>
+            </CheckBox>
+
+            <Spacer top={10} bottom={10} />
+
+            <CheckBox
+              style={{
+                borderRadius: 4,
+                borderWidth: 1,
+                borderColor: theme["background-basic-color-3"],
+                backgroundColor: theme["background-basic-color-1"],
+                padding: 20,
+              }}
               checked={diabetesMellitusWithoutComplicationChecked}
               onChange={(nextChecked) => {
                 setValue("diabetesMellitusWithoutComplication", nextChecked);
@@ -106,62 +119,6 @@ const FormStep3 = ({ navigation, route }) => {
               }}
             >
               <Text category="h6">Diabetes mellitus without complication</Text>
-            </CheckBox>
-
-            <Spacer top={10} bottom={10} />
-
-            <CheckBox
-              style={{
-                borderRadius: 4,
-                borderWidth: 1,
-                borderColor: theme["background-basic-color-3"],
-                backgroundColor: theme["background-basic-color-1"],
-                padding: 20,
-              }}
-              checked={
-                chronicObstructivePulmonaryDiseaseAndBronchiectasisChecked
-              }
-              onChange={(nextChecked) => {
-                setValue(
-                  "chronicObstructivePulmonaryDiseaseAndBronchiectasis",
-                  nextChecked
-                );
-                setChronicObstructivePulmonaryDiseaseAndBronchiectasisChecked(
-                  nextChecked
-                );
-              }}
-            >
-              <Text category="h6">
-                Chronic obstructive pulmonary disease and bronchiectasis
-              </Text>
-            </CheckBox>
-
-            <Spacer top={10} bottom={10} />
-
-            <CheckBox
-              style={{
-                borderRadius: 4,
-                borderWidth: 1,
-                borderColor: theme["background-basic-color-3"],
-                backgroundColor: theme["background-basic-color-1"],
-                padding: 20,
-              }}
-              checked={
-                otherSpecifiedAndUnspecifiedLowerRespiratoryDiseaseChecked
-              }
-              onChange={(nextChecked) => {
-                setValue(
-                  "otherSpecifiedAndUnspecifiedLowerRespiratoryDisease",
-                  nextChecked
-                );
-                setOtherSpecifiedAndUnspecifiedLowerRespiratoryDiseaseChecked(
-                  nextChecked
-                );
-              }}
-            >
-              <Text category="h6">
-                Other specified and unspecified lower respiratory disease
-              </Text>
             </CheckBox>
           </View>
         </ScrollView>

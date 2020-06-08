@@ -37,9 +37,10 @@ const FormStep2 = ({ navigation, route }) => {
     chronicRheumaticHeartDiseaseChecked,
     setChronicRheumaticHeartDiseaseChecked,
   ] = React.useState(false);
+
   const [
-    diabetesMellitusWithComplicationChecked,
-    setDiabetesMellitusWithComplicationChecked,
+    otherAndIllDefinedHeartDiseaseChecked,
+    setOtherAndIllDefinedHeartDiseaseChecked,
   ] = React.useState(false);
 
   const { register, setValue, handleSubmit } = useForm({
@@ -49,7 +50,7 @@ const FormStep2 = ({ navigation, route }) => {
       coronaryAtherosclerosisAndOtherHeartDisease: false,
       pulmonaryHeartDisease: false,
       chronicRheumaticHeartDisease: false,
-      diabetesMellitusWithComplication: false,
+      otherAndIllDefinedHeartDisease: false,
     },
   });
 
@@ -59,7 +60,7 @@ const FormStep2 = ({ navigation, route }) => {
     register({ name: "coronaryAtherosclerosisAndOtherHeartDisease" });
     register({ name: "pulmonaryHeartDisease" });
     register({ name: "chronicRheumaticHeartDisease" });
-    register({ name: "diabetesMellitusWithComplication" });
+    register({ name: "otherAndIllDefinedHeartDisease" });
   }, [register]);
 
   const onSubmit = (data) => {
@@ -216,13 +217,13 @@ const FormStep2 = ({ navigation, route }) => {
                 backgroundColor: theme["background-basic-color-1"],
                 padding: 20,
               }}
-              checked={diabetesMellitusWithComplicationChecked}
+              checked={otherAndIllDefinedHeartDiseaseChecked}
               onChange={(nextChecked) => {
-                setValue("diabetesMellitusWithComplication", nextChecked);
-                setDiabetesMellitusWithComplicationChecked(nextChecked);
+                setValue("otherAndIllDefinedHeartDisease", nextChecked);
+                setOtherAndIllDefinedHeartDiseaseChecked(nextChecked);
               }}
             >
-              <Text category="h6">Diabetes mellitus with complication</Text>
+              <Text category="h6">Other and ill-defined heart disease</Text>
             </CheckBox>
           </View>
         </ScrollView>
