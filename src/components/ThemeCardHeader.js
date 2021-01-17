@@ -7,34 +7,34 @@ import { ThemeContext } from "../hooks/theme-context";
 const ThemeCardHeader = (props) => {
   const themeContext = React.useContext(ThemeContext);
   return (
-    <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+    <View style={ { flexDirection: "row", justifyContent: "space-between" } }>
       {props.theme === "Light" && (
         <Text
-          style={{
+          style={ {
             color: "#222B45",
-          }}
+          } }
           category="h6"
         >
-          {props.title}
+          {props.title }
         </Text>
-      )}
+      ) }
       {themeContext.theme === "light" && props.theme === "Light" && (
         <Text appearance="hint">Active</Text>
-      )}
+      ) }
 
       {props.theme === "Dark" && (
         <Text
-          style={{
+          style={ {
             color: "#FFFFFF",
-          }}
+          } }
           category="h6"
         >
-          {props.title}
+          {props.title }
         </Text>
-      )}
+      ) }
       {themeContext.theme === "dark" && props.theme === "Dark" && (
         <Text appearance="hint">Active</Text>
-      )}
+      ) }
     </View>
   );
 };

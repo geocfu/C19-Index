@@ -9,8 +9,8 @@ const ThemeCard = (props) => {
     <React.Fragment>
       {props.title === "Light" && (
         <Card
-          {...props}
-          style={{
+          { ...props }
+          style={ {
             backgroundColor: "#FFFFFF",
             marginTop: 10,
             shadowColor: "#000",
@@ -22,69 +22,69 @@ const ThemeCard = (props) => {
             shadowRadius: 7.49,
 
             elevation: 12,
-          }}
+          } }
           appearance="filled"
         >
-          <ThemeCardHeader theme="Light" title={props.title} />
+          <ThemeCardHeader theme="Light" title={ props.title } />
           <View
-            style={{
+            style={ {
               flexDirection: "row",
               justifyContent: "center",
-            }}
+            } }
           >
             <View
-              style={{
+              style={ {
                 backgroundColor: "#F7F9FC",
                 width: 40,
                 height: 40,
                 borderRadius: 4,
                 marginHorizontal: 2,
-              }}
+              } }
             />
             <View
-              style={{
+              style={ {
                 backgroundColor: "#EDF1F7",
                 width: 40,
                 height: 40,
                 borderRadius: 4,
                 marginHorizontal: 2,
-              }}
+              } }
             />
             <View
-              style={{
+              style={ {
                 backgroundColor: "#1A2138",
                 width: 40,
                 height: 40,
                 borderRadius: 4,
                 marginHorizontal: 2,
-              }}
+              } }
             />
             <View
-              style={{
+              style={ {
                 backgroundColor: "#222B45",
                 width: 40,
                 height: 40,
                 borderRadius: 4,
                 marginHorizontal: 2,
-              }}
+              } }
             />
             <View
-              style={{
+              style={ {
                 backgroundColor: "#3366FF",
                 width: 40,
                 height: 40,
                 borderRadius: 4,
                 marginHorizontal: 2,
-              }}
+              } }
             />
           </View>
         </Card>
-      )}
+      ) }
 
       {props.title === "Dark" && (
         <Card
-          {...props}
-          style={{
+          { ...props }
+          style={ {
             backgroundColor: "#222B45",
             marginTop: 10,
             shadowColor: "#000",
@@ -96,64 +96,64 @@ const ThemeCard = (props) => {
             shadowRadius: 7.49,
 
             elevation: 12,
-          }}
+          } }
           appearance="filled"
         >
-          <ThemeCardHeader theme="Dark" title={props.title} />
+          <ThemeCardHeader theme="Dark" title={ props.title } />
           <View
-            style={{
+            style={ {
               flexDirection: "row",
               justifyContent: "center",
-            }}
+            } }
           >
             <View
-              style={{
+              style={ {
                 backgroundColor: "#1A2138",
                 width: 40,
                 height: 40,
                 borderRadius: 4,
                 marginHorizontal: 2,
-              }}
+              } }
             />
             <View
-              style={{
+              style={ {
                 backgroundColor: "#151A30",
                 width: 40,
                 height: 40,
                 borderRadius: 4,
                 marginHorizontal: 2,
-              }}
+              } }
             />
             <View
-              style={{
+              style={ {
                 backgroundColor: "#F7F9FC",
                 width: 40,
                 height: 40,
                 borderRadius: 4,
                 marginHorizontal: 2,
-              }}
+              } }
             />
             <View
-              style={{
+              style={ {
                 backgroundColor: "#FFFFFF",
                 width: 40,
                 height: 40,
                 borderRadius: 4,
                 marginHorizontal: 2,
-              }}
+              } }
             />
             <View
-              style={{
+              style={ {
                 backgroundColor: "#3366FF",
                 width: 40,
                 height: 40,
                 borderRadius: 4,
                 marginHorizontal: 2,
-              }}
+              } }
             />
           </View>
         </Card>
-      )}
+      ) }
     </React.Fragment>
   );
 };
