@@ -78,6 +78,9 @@ const FormStep3 = ({ navigation, route }) => {
       backgroundColor: theme["background-basic-color-1"],
       padding: 20,
     },
+    input: {
+      backgroundColor: theme["background-basic-color-1"]
+    },
     buttonContainer: {
       flex: 1,
       justifyContent: "flex-end",
