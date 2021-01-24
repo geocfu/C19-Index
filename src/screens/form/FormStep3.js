@@ -43,23 +43,23 @@ const FormStep3 = ({ navigation, route }) => {
       register({ name: "diabetesMellitusWithoutComplication" });
       register(
         { name: "hif1a" },
-        { max: 100000, min: 0, pattern: /^\d+$/ }
+        { max: 10, min: 0, pattern: /^\d+$/ }
       );
       register(
         { name: "vegf1" },
-        { max: 100000, min: 0, pattern: /^\d+$/ }
+        { max: 10, min: 0, pattern: /^\d+$/ }
       );
       register(
         { name: "epo" },
-        { max: 100000, min: 0, pattern: /^\d+$/ }
+        { max: 10, min: 0, pattern: /^\d+$/ }
       );
       register(
         { name: "glut1" },
-        { max: 100000, min: 0, pattern: /^\d+$/ }
+        { max: 10, min: 0, pattern: /^\d+$/ }
       );
       register(
         { name: "glut3" },
-        { max: 100000, min: 0, pattern: /^\d+$/ }
+        { max: 10, min: 0, pattern: /^\d+$/ }
       );
     }, [register])
   );
@@ -168,7 +168,7 @@ const FormStep3 = ({ navigation, route }) => {
             ) } */}
             {
               errors.hif1a && errors.hif1a.type === "max" &&
-              <Text status="danger">HIF-1A cannot be more than 100000</Text>
+              <Text status="danger">HIF-1A cannot be more than 10</Text>
             }
             {
               errors.hif1a && errors.hif1a.type === "min" &&
@@ -195,7 +195,7 @@ const FormStep3 = ({ navigation, route }) => {
             ) } */}
             {
               errors.vegf1 && errors.vegf1.type === "max" &&
-              <Text status="danger">VEGF1 cannot be more than 100000</Text>
+              <Text status="danger">VEGF1 cannot be more than 10</Text>
             }
             {
               errors.vegf1 && errors.vegf1.type === "min" &&
@@ -222,7 +222,7 @@ const FormStep3 = ({ navigation, route }) => {
             ) } */}
             {
               errors.epo && errors.epo.type === "max" &&
-              <Text status="danger">EPO cannot be more than 100000</Text>
+              <Text status="danger">EPO cannot be more than 10</Text>
             }
             {
               errors.epo && errors.epo.type === "min" &&
@@ -249,7 +249,7 @@ const FormStep3 = ({ navigation, route }) => {
             ) } */}
             {
               errors.glut1 && errors.glut1.type === "max" &&
-              <Text status="danger">GLUT 1 cannot be more than 100000</Text>
+              <Text status="danger">GLUT 1 cannot be more than 10</Text>
             }
             {
               errors.glut1 && errors.glut1.type === "min" &&
@@ -276,7 +276,7 @@ const FormStep3 = ({ navigation, route }) => {
             ) } */}
             {
               errors.glut3 && errors.glut3.type === "max" &&
-              <Text status="danger">GLUT 3 cannot be more than 100000</Text>
+              <Text status="danger">GLUT 3 cannot be more than 10</Text>
             }
             {
               errors.glut3 && errors.glut3.type === "min" &&

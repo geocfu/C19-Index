@@ -17,6 +17,7 @@ import Spacer from "../../components/Spacer";
 
 const BackIcon = (props) => <Icon { ...props } name="arrow-back" />;
 const ForwardIcon = (props) => <Icon { ...props } name="arrow-forward" />;
+const ResultsIcon = (props) => <Icon { ...props } name="done-all" />;
 
 const FormStep4 = ({ navigation, route }) => {
   const theme = useTheme();
@@ -29,8 +30,8 @@ const FormStep4 = ({ navigation, route }) => {
       pfk: 0,
       alda: 0,
       tpi: 0,
-      gapdh: 0,
-      pgk1: 0,
+      // gapdh: 0,
+      // pgk1: 0,
     },
   });
 
@@ -38,36 +39,36 @@ const FormStep4 = ({ navigation, route }) => {
     React.useCallback(() => {
       register(
         { name: "hk1" },
-        { max: 100000, min: 0, pattern: /^\d+$/ }
+        { max: 10, min: 0, max: 10, pattern: /^\d+$/ }
       );
       register(
         { name: "hk2" },
-        { max: 100000, min: 0, pattern: /^\d+$/ }
+        { max: 10, min: 0, max: 10, pattern: /^\d+$/ }
       );
       register(
         { name: "gpi" },
-        { max: 100000, min: 0, pattern: /^\d+$/ }
+        { max: 10, min: 0, max: 10, pattern: /^\d+$/ }
       );
       register(
         { name: "pfk" },
-        { max: 100000, min: 0, pattern: /^\d+$/ }
+        { max: 10, min: 0, max: 10, pattern: /^\d+$/ }
       );
       register(
         { name: "alda" },
-        { max: 100000, min: 0, pattern: /^\d+$/ }
+        { max: 10, min: 0, max: 10, pattern: /^\d+$/ }
       );
       register(
         { name: "tpi" },
-        { max: 100000, min: 0, pattern: /^\d+$/ }
+        { max: 10, min: 0, max: 10, pattern: /^\d+$/ }
       );
-      register(
-        { name: "gapdh" },
-        { max: 100000, min: 0, pattern: /^\d+$/ }
-      );
-      register(
-        { name: "pgk1" },
-        { max: 100000, min: 0, pattern: /^\d+$/ }
-      );
+      // register(
+      //   { name: "gapdh" },
+      //   { max: 10, min: 0, pattern: /^\d+$/ }
+      // );
+      // register(
+      //   { name: "pgk1" },
+      //   { max: 10, min: 0, pattern: /^\d+$/ }
+      // );
     }, [register])
   );
 
@@ -100,7 +101,7 @@ const FormStep4 = ({ navigation, route }) => {
       JSON.parse(currentRouteParams)
     );
 
-    navigation.navigate("FormStep5", JSON.stringify(newRouteParams));
+    navigation.navigate("Results", JSON.stringify(newRouteParams));
   };
 
   const renderBackAction = () => (
@@ -137,12 +138,9 @@ const FormStep4 = ({ navigation, route }) => {
               style={ styles.input }
               status={ errors.hk1 ? "danger" : "basic" }
             />
-            {/* { errors.hk1 && errors.hk1.type === "required" && (
-              <Text status="danger">Age is required.</Text>
-            ) } */}
             {
               errors.hk1 && errors.hk1.type === "max" &&
-              <Text status="danger">HK 1 cannot be more than 100000</Text>
+              <Text status="danger">HK 1 cannot be more than 10</Text>
             }
             {
               errors.hk1 && errors.hk1.type === "min" &&
@@ -164,13 +162,9 @@ const FormStep4 = ({ navigation, route }) => {
               style={ styles.input }
               status={ errors.hk2 ? "danger" : "basic" }
             />
-            {/* { 
-              errors.hk2 && errors.hk2.type === "required" && 
-              <Text status="danger">HK 2 is required.</Text>
-             } */}
             {
               errors.hk2 && errors.hk2.type === "max" &&
-              <Text status="danger">HK 2 cannot be more than 100000</Text>
+              <Text status="danger">HK 2 cannot be more than 10</Text>
             }
             {
               errors.hk2 && errors.hk2.type === "min" &&
@@ -192,12 +186,9 @@ const FormStep4 = ({ navigation, route }) => {
               style={ styles.input }
               status={ errors.gpi ? "danger" : "basic" }
             />
-            {/* { errors.hk1 && errors.hk1.type === "required" && (
-              <Text status="danger">Age is required.</Text>
-            ) } */}
             {
               errors.gpi && errors.gpi.type === "max" &&
-              <Text status="danger">GPI cannot be more than 100000</Text>
+              <Text status="danger">GPI cannot be more than 10</Text>
             }
             {
               errors.gpi && errors.gpi.type === "min" &&
@@ -219,12 +210,9 @@ const FormStep4 = ({ navigation, route }) => {
               style={ styles.input }
               status={ errors.pfk ? "danger" : "basic" }
             />
-            {/* { errors.hk1 && errors.hk1.type === "required" && (
-              <Text status="danger">Age is required.</Text>
-            ) } */}
             {
               errors.pfk && errors.pfk.type === "max" &&
-              <Text status="danger">PFK cannot be more than 100000</Text>
+              <Text status="danger">PFK cannot be more than 10</Text>
             }
             {
               errors.pfk && errors.pfk.type === "min" &&
@@ -246,12 +234,9 @@ const FormStep4 = ({ navigation, route }) => {
               style={ styles.input }
               status={ errors.alda ? "danger" : "basic" }
             />
-            {/* { errors.hk1 && errors.hk1.type === "required" && (
-              <Text status="danger">Age is required.</Text>
-            ) } */}
             {
               errors.alda && errors.alda.type === "max" &&
-              <Text status="danger">ALD A cannot be more than 100000</Text>
+              <Text status="danger">ALD A cannot be more than 10</Text>
             }
             {
               errors.alda && errors.alda.type === "min" &&
@@ -273,12 +258,9 @@ const FormStep4 = ({ navigation, route }) => {
               style={ styles.input }
               status={ errors.tpi ? "danger" : "basic" }
             />
-            {/* { errors.hk1 && errors.hk1.type === "required" && (
-              <Text status="danger">Age is required.</Text>
-            ) } */}
             {
               errors.tpi && errors.tpi.type === "max" &&
-              <Text status="danger">TPI cannot be more than 100000</Text>
+              <Text status="danger">TPI cannot be more than 10</Text>
             }
             {
               errors.tpi && errors.tpi.type === "min" &&
@@ -289,7 +271,7 @@ const FormStep4 = ({ navigation, route }) => {
               <Text status="danger">TPI must be numeric</Text>
             }
 
-            <Spacer top={ 10 } bottom={ 10 } />
+            {/* <Spacer top={ 10 } bottom={ 10 } />
 
             <Input
               label={ <Text category="h6">GAPDH (Glyceraldehyde 3 phosphate dehydrogenase)</Text> }
@@ -300,12 +282,9 @@ const FormStep4 = ({ navigation, route }) => {
               style={ styles.input }
               status={ errors.gapdh ? "danger" : "basic" }
             />
-            {/* { errors.hk1 && errors.hk1.type === "required" && (
-              <Text status="danger">Age is required.</Text>
-            ) } */}
             {
               errors.gapdh && errors.gapdh.type === "max" &&
-              <Text status="danger">GAPDH cannot be more than 100000</Text>
+              <Text status="danger">GAPDH cannot be more than 10</Text>
             }
             {
               errors.gapdh && errors.gapdh.type === "min" &&
@@ -327,12 +306,9 @@ const FormStep4 = ({ navigation, route }) => {
               style={ styles.input }
               status={ errors.pgk1 ? "danger" : "basic" }
             />
-            {/* { errors.hk1 && errors.hk1.type === "required" && (
-              <Text status="danger">Age is required.</Text>
-            ) } */}
             {
               errors.pgk1 && errors.pgk1.type === "max" &&
-              <Text status="danger">PGK 1 cannot be more than 100000</Text>
+              <Text status="danger">PGK 1 cannot be more than 10</Text>
             }
             {
               errors.pgk1 && errors.pgk1.type === "min" &&
@@ -341,16 +317,26 @@ const FormStep4 = ({ navigation, route }) => {
             {
               errors.pgk1 && errors.pgk1.type === "pattern" &&
               <Text status="danger">PGK 1 must be numeric</Text>
-            }
+            } */}
           </View>
         </ScrollView>
-        <View style={ styles.buttonContainer }>
+        {/* <View style={ styles.buttonContainer }>
           <Button
             size="giant"
             accessoryRight={ ForwardIcon }
             onPress={ handleSubmit(onSubmit) }
           >
             Go to Step 5
+          </Button>
+        </View> */}
+        <View
+          style={ styles.buttonContainer }>
+          <Button
+            size="giant"
+            accessoryLeft={ ResultsIcon }
+            onPress={ handleSubmit(onSubmit) }
+          >
+            Get the results
           </Button>
         </View>
       </Layout>

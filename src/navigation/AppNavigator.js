@@ -24,7 +24,7 @@ const HomeNavigator = () => (
     <Stack.Screen name="FormStep2" component={ FormStep2 } />
     <Stack.Screen name="FormStep3" component={ FormStep3 } />
     <Stack.Screen name="FormStep4" component={ FormStep4 } />
-    <Stack.Screen name="FormStep5" component={ FormStep5 } />
+    {/* <Stack.Screen name="FormStep5" component={ FormStep5 } /> */ }
     <Stack.Screen name="Results" component={ Results } />
   </Stack.Navigator>
 );

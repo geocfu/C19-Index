@@ -17,28 +17,32 @@ import {
   StyleService,
 } from "@ui-kitten/components";
 
+import { ThemeContext } from "../../hooks/theme-context";
+
 import Spacer from "../../components/Spacer";
 import CircularProgress from "../../components/CircularProgress";
+import RadarChart from "../../components/RadarChart";
 
 const RestartIcon = (props) => <Icon { ...props } name="sync" />;
 
 const Results = ({ navigation, route }) => {
   const theme = useTheme();
+  const themeContext = React.useContext(ThemeContext);
 
   const [circularBarProgress, setCircularBarProgress] = React.useState(0.0);
   const [circularBarColor, setCircularBarColor] = React.useState(theme["color-primary-500"]);
 
-  const [vulnerabilityTitle, setVulnerabilityTitle] = React.useState(
-    "Loading..."
-  );
-  const [
-    vulnerabilityDescription,
-    setVulnerabilityDescription,
-  ] = React.useState("Loading...");
+  const [vulnerabilityTitle, setVulnerabilityTitle] = React.useState("Loading...");
+  const [vulnerabilityDescription, setVulnerabilityDescription] = React.useState("Loading...");
+
+  const [radarChartTheme, setRadarChartTheme] = React.useState("");
+  const [maxima, setMaxima] = React.useState([]);
+  const [data, setData] = React.useState([]);
 
   useFocusEffect(
     React.useCallback(() => {
       calculateVulnerabilityIndex();
+      calculateRadarChart();
 
       const onBackPress = () => {
         return true; // disable back button behaviour
@@ -47,16 +51,32 @@ const Results = ({ navigation, route }) => {
       BackHandler.addEventListener("hardwareBackPress", onBackPress);
 
       return () => BackHandler.removeEventListener("hardwareBackPress", onBackPress);
-    })
+    }, [])
   );
 
   const styles = StyleService.create({
+    container: {
+      marginLeft: 10,
+      marginRight: 10,
+      marginTop: 10,
+      marginBottom: 10,
+    },
+    score: {
+      borderRadius: 4,
+      borderWidth: 1,
+      borderColor: theme["background-basic-color-3"],
+      backgroundColor: theme["background-basic-color-1"],
+      padding: 15,
+      borderTopColor: theme["color-primary-default"],
+      borderTopWidth: 4
+    },
     card: {
       borderRadius: 4,
       borderWidth: 1,
       borderColor: theme["background-basic-color-3"],
-      backgroundColor: "background-basic-color-1",
+      backgroundColor: theme["background-basic-color-1"],
       padding: 15,
+
     },
   });
 
@@ -143,25 +163,71 @@ const Results = ({ navigation, route }) => {
     }
   };
 
+  const processData = (data) => {
+    const maxByGroup = getMaxima(data);
+
+    const makeDataArray = (d) => {
+      return Object.keys(d).map((key) => {
+        return { x: key, y: d[key] / Object.keys(maxByGroup).length };
+      });
+    };
+
+    return data.map((datum) => makeDataArray(datum));
+  }
+
+  const getMaxima = (data) => {
+    const groupedData = Object.keys(data[0]).reduce((memo, key) => {
+      memo[key] = data.map((d) => d[key]);
+      return memo;
+    }, {});
+
+    return Object.keys(groupedData).reduce((memo, key) => {
+      memo[key] = Math.max(...groupedData[key]);
+      return memo;
+    }, {});
+  }
+
+
+  const calculateRadarChart = () => {
+    let data = JSON.parse(route.params);
+
+    let radarData = {
+      HIF1A: data.hif1a,
+      VEGF1: data.vegf1,
+      EPO: data.epo,
+      GLUT1: data.glut1,
+      GLUT3: data.glut3,
+      HK1: data.hk1,
+      HK2: data.hk2,
+      GPI: data.gpi,
+      PFK: data.pfk,
+      ALDA: data.alda,
+      TPI: data.tpi
+    }
+
+    setMaxima(getMaxima([radarData]));
+    setData(processData([radarData]));
+
+    if (themeContext.theme === "light") {
+      setRadarChartTheme("grey");
+    } else {
+      setRadarChartTheme("white");
+    }
+
+  }
+
   const renderScreenTitle = () => (
     <Text category="h6" style={ { fontWeight: "bold" } }>
       Results
     </Text>
   );
-
+  //@refresh reset
   return (
     <SafeAreaView style={ { flex: 1 } }>
       <TopNavigation title={ renderScreenTitle } alignment="center" />
       <Layout style={ { flex: 1 } } level="2">
         <ScrollView>
-          <View
-            style={ {
-              marginLeft: 10,
-              marginRight: 10,
-              marginTop: 10,
-              marginBottom: 10,
-            } }
-          >
+          <View style={ styles.container }>
             <Text
               category="h3"
               style={ { textAlign: "center", fontWeight: "bold" } }
@@ -169,36 +235,68 @@ const Results = ({ navigation, route }) => {
               Vulnerability To Severe Illness from COVID-19
             </Text>
 
-            <View
-              style={ {
-                justifyContent: "center",
-                alignItems: "center",
-              } }
-            >
+            <Spacer top={ 15 } bottom={ 15 } />
+
+            <View style={ styles.score }>
               <Text
-                category="h1"
-                style={ { color: circularBarColor, textAlign: "center" } }
+                category="h6"
+                style={ { textAlign: "left", fontWeight: "bold", marginBottom: 15 } }
+                appearance="hint"
               >
-                { vulnerabilityTitle } { "\n" }Vulnerability
+                Comorbidities Score
               </Text>
-              <Text
-                category="p1"
+              <View
                 style={ {
-                  color: circularBarColor,
-                  textAlign: "center",
-                  width: "60%",
+                  justifyContent: "center",
+                  alignItems: "center",
                 } }
               >
-                { vulnerabilityDescription }
+                <Text
+                  category="h1"
+                  style={ { color: circularBarColor, textAlign: "center" } }
+                >
+                  { vulnerabilityTitle } { "\n" }Vulnerability
               </Text>
+                <Text
+                  category="p1"
+                  style={ {
+                    color: circularBarColor,
+                    textAlign: "center",
+                    width: "60%",
+                  } }
+                >
+                  { vulnerabilityDescription }
+                </Text>
+              </View>
+
+              <CircularProgress
+                progress={ parseFloat(circularBarProgress) }
+                color={ circularBarColor }
+              />
             </View>
 
-            <CircularProgress
-              progress={ parseFloat(circularBarProgress) }
-              color={ circularBarColor }
-            />
-
             <Spacer top={ 30 } />
+
+            <View style={ styles.score }>
+              <Text
+                category="h6"
+                style={ { textAlign: "left", fontWeight: "bold", marginBottom: 15 } }
+                appearance="hint"
+              >
+                Biomarkers Score
+              </Text>
+              <View
+                style={ {
+                  justifyContent: "center",
+                  alignItems: "center",
+                } }
+              >
+                <RadarChart maxima={ maxima } data={ data } color={ radarChartTheme } />
+
+              </View>
+            </View>
+
+            <Spacer top={ 5 } bottom={ 5 } />
             <View style={ styles.card }>
               <Text category="h5" style={ { textAlign: "left" } }>
                 What should I do if I feel sick?
