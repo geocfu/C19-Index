@@ -24,6 +24,7 @@ const FormStep3 = ({ navigation, route }) => {
 
   const [diabetesMellitusWithComplicationChecked, setDiabetesMellitusWithComplicationChecked] = React.useState(false);
   const [diabetesMellitusWithoutComplicationChecked, setDiabetesMellitusWithoutComplicationChecked] = React.useState(false);
+  const [buttonIsDisabled, setButtonIsDisabled] = React.useState(false);
 
   const { register, setValue, handleSubmit, errors } = useForm({
     defaultValues: {
@@ -36,6 +37,12 @@ const FormStep3 = ({ navigation, route }) => {
       glut3: 0,
     },
   });
+
+  useFocusEffect(
+    React.useCallback(() => {
+      setButtonIsDisabled(false);
+    }, [])
+  );
 
   useFocusEffect(
     React.useCallback(() => {
@@ -92,6 +99,8 @@ const FormStep3 = ({ navigation, route }) => {
   });
 
   const onSubmit = (data) => {
+    setButtonIsDisabled(true);
+
     let oldRouteParams = route.params;
     let currentRouteParams = JSON.stringify(data);
 
@@ -294,6 +303,7 @@ const FormStep3 = ({ navigation, route }) => {
             size="giant"
             accessoryRight={ ForwardIcon }
             onPress={ handleSubmit(onSubmit) }
+            disabled={ buttonIsDisabled }
           >
             Go to Step 4
           </Button>

@@ -28,6 +28,7 @@ const FormStep1 = ({ navigation }) => {
   const [pneumoniaExceptThatCausedByTuberculosisChecked, setPneumoniaExceptThatCausedByTuberculosisChecked] = React.useState(false);
   const [chronicObstructivePulmonaryDiseaseAndBronchiectasisChecked, setChronicObstructivePulmonaryDiseaseAndBronchiectasisChecked] = React.useState(false);
   const [otherSpecifiedAndUnspecifiedLowerRespiratoryDiseaseChecked, setOtherSpecifiedAndUnspecifiedLowerRespiratoryDiseaseChecked] = React.useState(false);
+  const [buttonIsDisabled, setButtonIsDisabled] = React.useState(false);
 
   const { register, setValue, handleSubmit, errors } = useForm({
     defaultValues: {
@@ -39,14 +40,15 @@ const FormStep1 = ({ navigation }) => {
 
   useFocusEffect(
     React.useCallback(() => {
+      setButtonIsDisabled(false);
+    }, [])
+  );
+
+  useFocusEffect(
+    React.useCallback(() => {
       register(
         { name: "age" },
-        {
-          required: true,
-          max: 110,
-          min: 1,
-          pattern: /^\d+$/,
-        }
+        { required: true, max: 110, min: 1, pattern: /^\d+$/ }
       );
       register(
         { name: "sex" },
@@ -54,12 +56,7 @@ const FormStep1 = ({ navigation }) => {
       );
       register(
         { name: "numberOfHospitalAdmissions" },
-        {
-          required: true,
-          max: 10,
-          min: 0,
-          pattern: /^\d+$/,
-        }
+        { required: true, max: 10, min: 0, pattern: /^\d+$/ }
       );
       register({ name: "pneumoniaExceptThatCausedByTuberculosis" });
       register({ name: "chronicObstructivePulmonaryDiseaseAndBronchiectasis" });
@@ -104,7 +101,10 @@ const FormStep1 = ({ navigation }) => {
   });
 
   const onSubmit = (data) => {
-    let newRouteParams = data;
+    setButtonIsDisabled(true);
+
+    const newRouteParams = data;
+
     navigation.navigate("FormStep2", JSON.stringify(newRouteParams));
   };
 
@@ -281,6 +281,7 @@ const FormStep1 = ({ navigation }) => {
             size="giant"
             accessoryRight={ ForwardIcon }
             onPress={ handleSubmit(onSubmit) }
+            disabled={ buttonIsDisabled }
           >
             Go to Step 2
           </Button>

@@ -27,6 +27,7 @@ const FormStep2 = ({ navigation, route }) => {
   const [pulmonaryHeartDiseaseChecked, setPulmonaryHeartDiseaseChecked] = React.useState(false);
   const [chronicRheumaticHeartDiseaseChecked, setChronicRheumaticHeartDiseaseChecked] = React.useState(false);
   const [otherAndIllDefinedHeartDiseaseChecked, setOtherAndIllDefinedHeartDiseaseChecked] = React.useState(false);
+  const [buttonIsDisabled, setButtonIsDisabled] = React.useState(false);
 
   const { register, setValue, handleSubmit } = useForm({
     defaultValues: {
@@ -38,6 +39,12 @@ const FormStep2 = ({ navigation, route }) => {
       otherAndIllDefinedHeartDisease: false,
     },
   });
+
+  useFocusEffect(
+    React.useCallback(() => {
+      setButtonIsDisabled(false);
+    }, [])
+  );
 
   useFocusEffect(
     React.useCallback(() => {
@@ -75,6 +82,8 @@ const FormStep2 = ({ navigation, route }) => {
   });
 
   const onSubmit = (data) => {
+    setButtonIsDisabled(true);
+
     let oldRouteParams = route.params;
     let currentRouteParams = JSON.stringify(data);
 
@@ -195,6 +204,7 @@ const FormStep2 = ({ navigation, route }) => {
             size="giant"
             accessoryRight={ ForwardIcon }
             onPress={ handleSubmit(onSubmit) }
+            disabled={ buttonIsDisabled }
           >
             Go to Step 3
           </Button>

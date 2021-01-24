@@ -20,6 +20,8 @@ const ForwardIcon = (props) => <Icon { ...props } name="arrow-forward" />;
 const ResultsIcon = (props) => <Icon { ...props } name="done-all" />;
 
 const FormStep4 = ({ navigation, route }) => {
+  const [buttonIsDisabled, setButtonIsDisabled] = React.useState(false);
+
   const theme = useTheme();
 
   const { register, setValue, handleSubmit, errors } = useForm({
@@ -34,6 +36,12 @@ const FormStep4 = ({ navigation, route }) => {
       // pgk1: 0,
     },
   });
+
+  useFocusEffect(
+    React.useCallback(() => {
+      setButtonIsDisabled(false);
+    }, [])
+  );
 
   useFocusEffect(
     React.useCallback(() => {
@@ -93,6 +101,8 @@ const FormStep4 = ({ navigation, route }) => {
   });
 
   const onSubmit = (data) => {
+    setButtonIsDisabled(true);
+
     let oldRouteParams = route.params;
     let currentRouteParams = JSON.stringify(data);
 
@@ -335,6 +345,7 @@ const FormStep4 = ({ navigation, route }) => {
             size="giant"
             accessoryLeft={ ResultsIcon }
             onPress={ handleSubmit(onSubmit) }
+            disabled={ buttonIsDisabled }
           >
             Get the results
           </Button>
