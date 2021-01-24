@@ -8,13 +8,13 @@
       "android",
       "web"
     ],
-    "version": "1.1.0",
+    "version": "1.1.1",
     "orientation": "portrait",
     "icon": "./src/assets/images/medical-mask.png",
     "scheme": "c19index",
     "android": {
       "package": "gr.ionio.bihelab.c19index",
-      "versionCode": 110
+      "versionCode": 111
     },
     "splash": {
       "image": "./src/assets/images/medical-mask.png",
@@ -29,7 +29,7 @@
     ],
     "ios": {
       "bundleIdentifier": "gr.ionio.bihelab.c19index",
-      "buildNumber": "1.1.0",
+      "buildNumber": "1.1.1",
       "supportsTablet": true
     },
     "web": {
