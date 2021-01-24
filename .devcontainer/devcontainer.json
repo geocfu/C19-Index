@@ -1,0 +1,65 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.155.1/containers/javascript-node
+{
+	"name": "Node.js Expo",
+	"build": {
+		"dockerfile": "Dockerfile",
+		// Update 'VARIANT' to pick a Node version: 10, 12, 14
+		"args": {
+			"VARIANT": "14"
+		}
+	},
+	// Set *default* container specific settings.json values on container create.
+	"settings": {
+		"terminal.integrated.shell.linux": "/bin/bash",
+		"editor.fontFamily": "JetBrains Mono, Fira Code, Hack, Menlo, Consolas, 'Courier New', monospace",
+		"editor.rulers": [
+			80,
+			120
+		],
+		"editor.tabSize": 2,
+		"editor.fontSize": 13,
+		"editor.formatOnSave": true,
+		"[javascript]": {
+			"editor.defaultFormatter": "vscode.typescript-language-features"
+		},
+		"javascript.format.insertSpaceAfterOpeningAndBeforeClosingJsxExpressionBraces": true,
+		"[typescript]": {
+			"editor.defaultFormatter": "vscode.typescript-language-features"
+		},
+		"[typescriptreact]": {
+			"editor.defaultFormatter": "vscode.typescript-language-features"
+		},
+		"[json]": {
+			"editor.defaultFormatter": "vscode.json-language-features"
+		},
+		"workbench.tips.enabled": false,
+		"workbench.colorTheme": "GitHub Dark",
+		"workbench.colorCustomizations": {
+			"editorRuler.foreground": "#424242",
+		},
+		"telemetry.enableTelemetry": false,
+		"telemetry.enableCrashReporter": false,
+		"window.zoomLevel": -1,
+		"window.titleBarStyle": "custom",
+		"eslint.alwaysShowStatus": true,
+		"eslint.packageManager": "yarn",
+	},
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		"dbaeumer.vscode-eslint",
+		"github.github-vscode-theme",
+		"pkief.material-icon-theme",
+		"eamodio.gitlens",
+		"editorconfig.editorconfig",
+	],
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	"forwardPorts": [
+		19002,
+		19002,
+	],
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "yarn",
+	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+	"remoteUser": "node"
+}
